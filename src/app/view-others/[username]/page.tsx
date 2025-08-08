@@ -12,19 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Ban, Heart, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-
-const chartConfig = {
-  rejects: {
-    label: "Rejects",
-    color: "hsl(var(--primary))",
-  },
-  leftSwipes: {
-    label: "Left Swipes",
-    color: "hsl(var(--accent))",
-  },
-} satisfies ChartConfig
 
 export default function FakeUserProfilePage() {
     const router = useRouter();
@@ -52,10 +39,6 @@ export default function FakeUserProfilePage() {
           </>
         );
     }
-    
-    const chartData = [
-      { metric: "Stats", rejects: user.stats.rejects, leftSwipes: user.stats.leftSwipes },
-    ];
     
     const handleAskOut = () => {
         toast({
@@ -115,31 +98,6 @@ export default function FakeUserProfilePage() {
                             <CardDescription className="text-lg px-2">{user.bio}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <div>
-                                <h3 className="font-bold mb-2 text-primary text-center">Stats of Sadness</h3>
-                                <div className="text-center text-muted-foreground">
-                                    <p><span className="font-bold text-primary">{user.stats.rejects}</span> Rejects & Counting</p>
-                                    <p><span className="font-bold text-accent">{user.stats.leftSwipes}</span> People Swiped Left</p>
-                                </div>
-                                <ChartContainer config={chartConfig} className="mx-auto aspect-video max-h-40 mt-4">
-                                    <BarChart accessibilityLayer data={chartData} margin={{left: 10, right: 10}}>
-                                    <CartesianGrid vertical={false} />
-                                    <XAxis
-                                        dataKey="metric"
-                                        tickLine={false}
-                                        tickMargin={10}
-                                        axisLine={false}
-                                        tickFormatter={() => ""}
-                                    />
-                                    <ChartTooltip
-                                        cursor={false}
-                                        content={<ChartTooltipContent indicator="dot" />}
-                                    />
-                                    <Bar dataKey="rejects" fill="var(--color-rejects)" radius={4} />
-                                    <Bar dataKey="leftSwipes" fill="var(--color-leftSwipes)" radius={4} />
-                                    </BarChart>
-                                </ChartContainer>
-                            </div>
                             <div className="border-t pt-6">
                                 <h3 className="font-bold mb-2 text-primary text-center">Ridiculous Traits</h3>
                                 <div className="flex flex-wrap gap-2 justify-center">

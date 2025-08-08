@@ -69,29 +69,33 @@ export default function ProfilePage() {
   const handleRegenerate = () => {
     localStorage.removeItem("404love_answers");
     localStorage.removeItem("404love_questions");
+    localStorage.removeItem("404love_stats");
     router.push("/");
   };
   
   useEffect(() => {
     const userString = localStorage.getItem("404love_user");
-    const answersString = localStorage.getItem("404love_answers");
-
     if (!userString) {
       router.push("/login");
       return;
     }
     const user = JSON.parse(userString);
     setUsername(user.username);
-    
-    // Generate funny stats
-    const rejects = Math.floor(Math.random() * 100) + 50;
-    const leftSwipes = Math.floor(Math.random() * 500) + 200;
-    setStats({ rejects, leftSwipes });
-    
+
+    // Load stats from localStorage or initialize them
+    const storedStats = localStorage.getItem("404love_stats");
+    if (storedStats) {
+      setStats(JSON.parse(storedStats));
+    } else {
+      const initialStats = { rejects: 0, leftSwipes: 0 };
+      setStats(initialStats);
+      localStorage.setItem("404love_stats", JSON.stringify(initialStats));
+    }
+
+    const answersString = localStorage.getItem("404love_answers");
     if (!answersString) {
-      // If no answers, they might be a returning user. Don't generate new content.
       setBio("Welcome back to the void. Ready for another round of disappointment?");
-      setAvatar("https://placehold.co/128x128.png"); // A default avatar
+      setAvatar("https://placehold.co/128x128.png");
       setLoading(false);
       return;
     }
@@ -106,10 +110,22 @@ export default function ProfilePage() {
   }, [router]);
   
   useEffect(() => {
+    // Interval to slowly increase left swipes
+    const swipeInterval = setInterval(() => {
+      setStats(prevStats => {
+        const newStats = { ...prevStats, leftSwipes: prevStats.leftSwipes + 1 };
+        localStorage.setItem("404love_stats", JSON.stringify(newStats));
+        return newStats;
+      });
+    }, 3000); // Increase every 3 seconds
+
+    return () => clearInterval(swipeInterval);
+  }, []);
+
+  useEffect(() => {
     if (avatar && bio) {
       setLoading(false);
       const answersString = localStorage.getItem("404love_answers");
-      // Only show the toast if they just completed the questionnaire
       if (answersString) {
         const randomJoke = popupJokes[Math.floor(Math.random() * popupJokes.length)];
         const toastTimer = setTimeout(() => {

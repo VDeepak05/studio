@@ -33,6 +33,28 @@ export default function FakeUserProfilePage() {
             </SidebarInset>
         );
     }
+    
+    const handleAskOut = () => {
+        toast({
+            title: `Asking out ${user.username}...`,
+            description: "Hold your breath. Or don't. It won't change the outcome.",
+        });
+
+        setTimeout(() => {
+            const storedStats = localStorage.getItem("404love_stats");
+            const currentStats = storedStats ? JSON.parse(storedStats) : { rejects: 0, leftSwipes: 0 };
+            const newStats = { ...currentStats, rejects: currentStats.rejects + 1 };
+            localStorage.setItem("404love_stats", JSON.stringify(newStats));
+
+            toast({
+                title: "It's a No.",
+                description: `Shocker! ${user.username} rejected you. Your rejection count has been updated accordingly.`,
+                variant: "destructive",
+            });
+            // Optionally, redirect to profile to see the updated stat
+            // router.push('/profile');
+        }, 10000); // 10-second delay for dramatic effect
+    };
 
     const handleAction = (action: string) => {
         toast({
@@ -83,7 +105,7 @@ export default function FakeUserProfilePage() {
                                     Block
                                 </Button>
                             </div>
-                            <Button variant="outline" className="w-full" onClick={() => handleAction('Ask out')}>
+                            <Button variant="outline" className="w-full" onClick={handleAskOut}>
                                 <Heart className="mr-2"/>
                                 Ask to Date (and get rejected)
                             </Button>

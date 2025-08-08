@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -33,13 +34,6 @@ export async function generateGlitchedAvatar(
   return generateGlitchedAvatarFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'glitchedAvatarPrompt',
-  input: {schema: GlitchedAvatarInputSchema},
-  output: {schema: GlitchedAvatarOutputSchema},
-  prompt: `Generate a deliberately glitched and nonsensical AI avatar for a user profile, with the following description: {{{description}}}. The avatar should be visually chaotic and humorous, reflecting the absurd nature of online dating. Focus on creating a broken or distorted image.`,
-});
-
 const generateGlitchedAvatarFlow = ai.defineFlow(
   {
     name: 'generateGlitchedAvatarFlow',
@@ -47,17 +41,25 @@ const generateGlitchedAvatarFlow = ai.defineFlow(
     outputSchema: GlitchedAvatarOutputSchema,
   },
   async input => {
-    const {media} = await ai.generate({
-      // IMPORTANT: ONLY the googleai/gemini-2.0-flash-preview-image-generation model is able to generate images. You MUST use exactly this model to generate images.
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+    try {
+      const {media} = await ai.generate({
+        // IMPORTANT: ONLY the googleai/gemini-2.0-flash-preview-image-generation model is able to generate images. You MUST use exactly this model to generate images.
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
 
-      // simple prompt
-      prompt: input.description,
+        // simple prompt
+        prompt: `Generate a deliberately glitched and nonsensical AI avatar for a user profile, with the following description: ${input.description}. The avatar should be visually chaotic and humorous, reflecting the absurd nature of online dating. Focus on creating a broken or distorted image.`,
 
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'], // MUST provide both TEXT and IMAGE, IMAGE only won't work
-      },
-    });
-    return {avatarDataUri: media!.url!};
+        config: {
+          responseModalities: ['TEXT', 'IMAGE'], // MUST provide both TEXT and IMAGE, IMAGE only won't work
+        },
+      });
+      if (media?.url) {
+        return {avatarDataUri: media.url};
+      }
+    } catch (error) {
+      console.error("Error generating glitched avatar, returning default.", error);
+    }
+    // Return a default placeholder if generation fails
+    return { avatarDataUri: 'https://placehold.co/128x128.png' };
   }
 );

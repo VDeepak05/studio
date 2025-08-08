@@ -15,12 +15,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AppHeader } from "@/components/app-header";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [forgotPasswordUsername, setForgotPasswordUsername] = useState("");
 
   const handleLogin = () => {
     if (!username || !password) {
@@ -49,6 +63,31 @@ export default function LoginPage() {
       router.push("/");
     }
   };
+
+  const handleForgotPassword = () => {
+    if (!forgotPasswordUsername) {
+      toast({
+        title: "Username required",
+        description: "Please enter a username to recover the password.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const storedUser = localStorage.getItem(`404love_user_${forgotPasswordUsername}`);
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      toast({
+        title: "Password Recovery",
+        description: `Your password is: ${user.password}. Don't lose it again!`,
+      });
+    } else {
+       toast({
+        title: "User Not Found",
+        description: "No user found with that username. Are you sure you exist?",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -83,6 +122,32 @@ export default function LoginPage() {
               />
             </div>
             {error && <p className="text-primary animate-shake">{error}</p>}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="link" className="p-0 h-auto text-muted-foreground">Forgot Password?</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Forgot Your Password?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Happens to the best of us. Enter your username below and we'll "recover" it for you. No promises it'll be the right one.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="space-y-2">
+                    <Label htmlFor="forgot-username">Username</Label>
+                    <Input
+                        id="forgot-username"
+                        value={forgotPasswordUsername}
+                        onChange={(e) => setForgotPasswordUsername(e.target.value)}
+                        placeholder="YourFutureEx"
+                    />
+                </div>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleForgotPassword}>Recover Password</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardContent>
           <CardFooter>
             <Button onClick={handleLogin} className="w-full">

@@ -69,7 +69,6 @@ export default function ProfilePage() {
   const handleRegenerate = () => {
     localStorage.removeItem("404love_answers");
     localStorage.removeItem("404love_questions");
-    localStorage.removeItem("404love_stats");
     router.push("/");
   };
   
@@ -110,6 +109,11 @@ export default function ProfilePage() {
   }, [router]);
   
   useEffect(() => {
+    const answersString = localStorage.getItem("404love_answers");
+    if (!answersString) {
+      return; // Don't start the counter if profile is not set up
+    }
+    
     // This interval now handles both left swipes and keeping the reject count in sync.
     const statsInterval = setInterval(() => {
       const storedStats = localStorage.getItem("404love_stats");

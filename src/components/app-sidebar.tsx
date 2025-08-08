@@ -13,7 +13,6 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
-  SidebarTrigger,
 } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
 import {
@@ -43,14 +42,7 @@ export function AppSidebar() {
   return (
     <>
       <SidebarHeader>
-        <SidebarTrigger asChild>
-            <div className="flex items-center gap-3 cursor-pointer">
-            <HeartCrack className="text-primary size-8" />
-            <h1 className="text-2xl font-headline font-bold text-primary">
-                404Love
-            </h1>
-            </div>
-        </SidebarTrigger>
+        {/* The trigger is now in AppHeader */}
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>

@@ -29,7 +29,7 @@ export type GenerateQuestionsOutput = z.infer<typeof GenerateQuestionsOutputSche
 export async function generateQuestions(input: GenerateQuestionsInput): Promise<{questions: (z.infer<typeof QuestionSchema> & {type?: 'radio' | 'textarea'})[]}> {
   const output = await generateQuestionsFlow(input);
 
-  const questions = output?.questions ?? [
+  const questions = (output?.questions && output.questions.length > 0) ? output.questions : [
     { key: 'default1', text: 'Our AI is having an existential crisis. What is your favorite color?', options: ['Red', 'Blue', 'Green', 'The void'] },
     { key: 'default2', text: 'What is your spirit animal?', options: ['A slightly deflated balloon', 'A majestic trash panda', 'A caffeinated squirrel', 'A philosophical sloth'] },
     { key: 'default3', text: 'How do you handle stress?', options: ['Internal screaming', 'Binge-watching shows I\'ve seen 10 times', 'Pretending it\'s not happening', 'Retail therapy'] },
@@ -79,6 +79,8 @@ const generateQuestionsFlow = ai.defineFlow(
     } catch (error) {
         console.error("Error generating questions, returning default.", error);
     }
-    return null;
+    // Return a valid structure with an empty array to prevent validation errors.
+    // The calling function will handle the fallback to default questions.
+    return { questions: [] };
   }
 );

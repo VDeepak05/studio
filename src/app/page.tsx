@@ -30,6 +30,13 @@ export default function Home() {
       return;
     }
 
+    // If user has answers, they shouldn't be on the questionnaire page.
+    const answers = localStorage.getItem("404love_answers");
+    if (answers) {
+      router.push("/profile");
+      return;
+    }
+
     const fetchQuestions = async () => {
         setLoading(true);
         try {
@@ -62,6 +69,7 @@ export default function Home() {
     }
   }, [router]);
 
+  // This check also covers the redirect from answers check.
   if (loading || !questions) {
     return (
       <>

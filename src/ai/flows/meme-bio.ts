@@ -59,7 +59,14 @@ const generateMemeBioFlow = ai.defineFlow(
     outputSchema: MemeBioOutputSchema,
   },
   async input => {
-    const {output} = await memeBioPrompt(input);
-    return output!;
+    try {
+      const {output} = await memeBioPrompt(input);
+      if (output) {
+        return output;
+      }
+    } catch (error) {
+      console.error('Error generating meme bio, returning default.', error);
+    }
+    return { bio: "Our bio-generator is on a break. It's probably swiping right on other servers." };
   }
 );

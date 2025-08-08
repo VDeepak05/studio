@@ -24,6 +24,7 @@ import {
   Users,
   LogOut,
   ChevronDown,
+  ThumbsDown,
 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { useState } from "react";
@@ -42,7 +43,12 @@ export function AppSidebar() {
   return (
     <>
       <SidebarHeader>
-        {/* The trigger is now in AppHeader */}
+        <div className="flex items-center gap-3 p-2">
+           <HeartCrack className="text-primary size-8" />
+            <h1 className="text-2xl font-headline font-bold text-primary group-data-[collapsible=icon]:hidden">
+                404Love
+            </h1>
+        </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
@@ -74,6 +80,14 @@ export function AppSidebar() {
                                 <Link href="/actions/likes">
                                     <ThumbsUp/>
                                     <span>Likes</span>
+                                </Link>
+                            </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                        <SidebarMenuSubItem>
+                            <SidebarMenuSubButton asChild isActive={pathname === '/actions/dislikes'}>
+                                <Link href="/actions/dislikes">
+                                    <ThumbsDown/>
+                                    <span>Dislikes</span>
                                 </Link>
                             </SidebarMenuSubButton>
                         </SidebarMenuSubItem>

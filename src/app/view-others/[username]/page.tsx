@@ -1,0 +1,101 @@
+
+"use client";
+
+import { useParams, useRouter } from "next/navigation";
+import Image from "next/link";
+import { AppHeader } from "@/components/app-header";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Sidebar, SidebarInset } from "@/components/ui/sidebar";
+import { fakeUsers, FakeUser } from "@/lib/fake-users";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Ban, Heart, ThumbsUp } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+export default function FakeUserProfilePage() {
+    const router = useRouter();
+    const params = useParams();
+    const { toast } = useToast();
+    const username = params.username as string;
+    const user = fakeUsers.find(u => u.username === username);
+
+    if (!user) {
+        return (
+            <SidebarInset>
+                <div className="flex flex-col items-center justify-center min-h-screen">
+                    <p className="text-2xl font-bold">User not found!</p>
+                    <Button onClick={() => router.back()} className="mt-4">
+                        <ArrowLeft className="mr-2"/>
+                        Go Back
+                    </Button>
+                </div>
+            </SidebarInset>
+        );
+    }
+
+    const handleAction = (action: string) => {
+        toast({
+            title: `You tried to ${action} ${user.username}`,
+            description: "Your attempt has been noted and will be used against you in the court of digital love. Nothing actually happened.",
+            variant: action === 'Block' ? "destructive" : "default"
+        })
+    };
+
+    return (
+        <>
+            <Sidebar>
+                <AppSidebar />
+            </Sidebar>
+            <SidebarInset>
+                <div className="min-h-screen flex flex-col">
+                    <AppHeader />
+                    <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
+                        <Card className="w-full max-w-md animate-fade-in-up">
+                        <CardHeader className="items-center text-center">
+                            <img
+                                src={user.avatar}
+                                alt={`Profile picture of ${user.username}`}
+                                width={128}
+                                height={128}
+                                className="size-32 rounded-full border-4 border-primary object-cover bg-secondary"
+                                data-ai-hint="profile avatar"
+                            />
+                            <CardTitle className="font-headline text-3xl mt-4">{user.username}</CardTitle>
+                            <CardDescription className="text-lg px-2">{user.bio}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <div className="border-t pt-6">
+                            <h3 className="font-bold mb-2 text-primary text-center">Questionable Traits</h3>
+                            <div className="flex flex-wrap gap-2 justify-center">
+                                {user.traits.map(trait => <Badge key={trait} variant="secondary">{trait}</Badge>)}
+                            </div>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="flex flex-col gap-2">
+                            <div className="flex gap-2 w-full">
+                                <Button className="w-full" onClick={() => handleAction('Like')}>
+                                    <ThumbsUp className="mr-2" />
+                                    Like
+                                </Button>
+                                <Button variant="destructive" className="w-full" onClick={() => handleAction('Block')}>
+                                    <Ban className="mr-2" />
+                                    Block
+                                </Button>
+                            </div>
+                            <Button variant="outline" className="w-full" onClick={() => handleAction('Ask out')}>
+                                <Heart className="mr-2"/>
+                                Ask to Date (and get rejected)
+                            </Button>
+                             <Button onClick={() => router.back()} className="w-full mt-2" variant="ghost">
+                                <ArrowLeft className="mr-2"/>
+                                Back to the Gallery
+                            </Button>
+                        </CardFooter>
+                        </Card>
+                    </main>
+                </div>
+            </SidebarInset>
+        </>
+    )
+}

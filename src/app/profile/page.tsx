@@ -47,6 +47,10 @@ const popupJokes = [
 ]
 
 const chartConfig = {
+  likes: {
+    label: "Likes",
+    color: "hsl(var(--chart-2))",
+  },
   rejects: {
     label: "Rejects",
     color: "hsl(var(--primary))",
@@ -63,7 +67,7 @@ export default function ProfilePage() {
   const [username, setUsername] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
   const [bio, setBio] = useState<string | null>(null);
-  const [stats, setStats] = useState({ rejects: 0, leftSwipes: 0 });
+  const [stats, setStats] = useState({ likes: 0, rejects: 0, leftSwipes: 0 });
   const [loading, setLoading] = useState(true);
 
   const handleRegenerate = () => {
@@ -84,13 +88,17 @@ export default function ProfilePage() {
 
     // Load stats from localStorage or initialize them if they don't exist at all
     const storedStats = localStorage.getItem("404love_stats");
+    let currentStats;
     if (storedStats) {
-      setStats(JSON.parse(storedStats));
+      currentStats = JSON.parse(storedStats);
     } else {
-      const initialStats = { rejects: 0, leftSwipes: 0 };
-      setStats(initialStats);
-      localStorage.setItem("404love_stats", JSON.stringify(initialStats));
+      currentStats = { rejects: 0, leftSwipes: 0 };
     }
+    // Ensure likes is always present and zero
+    currentStats.likes = 0;
+    setStats(currentStats);
+    localStorage.setItem("404love_stats", JSON.stringify(currentStats));
+
 
     const answersString = localStorage.getItem("404love_answers");
     if (!answersString) {
@@ -128,7 +136,7 @@ export default function ProfilePage() {
     // This interval now handles both left swipes and keeping the reject count in sync.
     const statsInterval = setInterval(() => {
       const storedStats = localStorage.getItem("404love_stats");
-      const currentStats = storedStats ? JSON.parse(storedStats) : { rejects: 0, leftSwipes: 0 };
+      const currentStats = storedStats ? JSON.parse(storedStats) : { likes: 0, rejects: 0, leftSwipes: 0 };
       const newStats = { ...currentStats, leftSwipes: currentStats.leftSwipes + 1 };
       localStorage.setItem("404love_stats", JSON.stringify(newStats));
       setStats(newStats);
@@ -156,7 +164,7 @@ export default function ProfilePage() {
   }, [avatar, bio, toast]);
 
   const chartData = [
-    { metric: "Stats", rejects: stats.rejects, leftSwipes: stats.leftSwipes },
+    { metric: "Stats", likes: stats.likes, rejects: stats.rejects, leftSwipes: stats.leftSwipes },
   ];
 
   return (
@@ -195,6 +203,7 @@ export default function ProfilePage() {
                 <div>
                   <h3 className="font-bold mb-2 text-primary text-center">Your Stats of Sadness</h3>
                   <div className="text-center text-muted-foreground">
+                    <p><span className="font-bold text-chart-2">{stats.likes}</span> Likes (as expected)</p>
                     <p><span className="font-bold text-primary">{stats.rejects}</span> Rejects (more on the way)</p>
                     <p><span className="font-bold text-accent">{stats.leftSwipes}</span> Dislikes (no wonder)</p>
                   </div>
@@ -212,6 +221,7 @@ export default function ProfilePage() {
                         cursor={false}
                         content={<ChartTooltipContent indicator="dot" />}
                       />
+                      <Bar dataKey="likes" fill="var(--color-likes)" radius={4} />
                       <Bar dataKey="rejects" fill="var(--color-rejects)" radius={4} />
                       <Bar dataKey="leftSwipes" fill="var(--color-leftSwipes)" radius={4} />
                     </BarChart>
@@ -253,3 +263,4 @@ export default function ProfilePage() {
     </>
   );
 }
+

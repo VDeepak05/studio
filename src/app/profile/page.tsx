@@ -20,11 +20,13 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { RefreshCw } from "lucide-react";
+import { MessageSquare, RefreshCw } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { Sidebar, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { generateInsult } from "@/ai/flows/generate-insult";
+import { fakeUsers } from "@/lib/fake-users";
 
 const ridiculousTraits = [
   "Fluent in Sarcasm",
@@ -163,6 +165,46 @@ export default function ProfilePage() {
     }
   }, [avatar, bio, toast]);
 
+  useEffect(() => {
+    if (!username || !bio) return;
+
+    const generateNewComment = async () => {
+        const allComments = JSON.parse(localStorage.getItem("404love_comments") || "[]");
+        const profileComments = allComments.filter((c: any) => c.toUser === username);
+        
+        const now = new Date().getTime();
+        const lastCommentTimestamp = parseInt(localStorage.getItem("404love_last_comment_time") || "0");
+        
+        const isUnderTen = profileComments.length < 10;
+        const tenMinutes = 10 * 60 * 1000;
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        const timeLimit = isUnderTen ? tenMinutes : oneDay;
+
+        if (now - lastCommentTimestamp > timeLimit) {
+            const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+            const insultResponse = await generateInsult({ username, bio });
+
+            const newComment = {
+                id: Date.now(),
+                fromUser: randomUser.username,
+                toUser: username,
+                comment: insultResponse.insult,
+                timestamp: new Date().toISOString(),
+            };
+            allComments.push(newComment);
+            localStorage.setItem("404love_comments", JSON.stringify(allComments));
+            localStorage.setItem("404love_last_comment_time", now.toString());
+        }
+    };
+
+    generateNewComment(); // Check on load
+    const commentInterval = setInterval(generateNewComment, 60 * 1000); // Check every minute
+
+    return () => clearInterval(commentInterval);
+  }, [username, bio]);
+
+
   const chartData = [
     { metric: "Stats", likes: stats.likes, rejects: stats.rejects, leftSwipes: stats.leftSwipes },
   ];
@@ -241,20 +283,28 @@ export default function ProfilePage() {
                 </div>
               </CardContent>
               <CardFooter className="flex-col gap-4">
-                <Button asChild className="w-full" size="lg" disabled={loading}>
+                 <Button asChild className="w-full" size="lg" disabled={loading}>
                   <Link href="/matching">
                     {loading ? "Calibrating Disasters..." : "Find Your Next Mistake"}
                   </Link>
                 </Button>
-                <Button
-                  onClick={handleRegenerate}
-                  variant="outline"
-                  className="w-full"
-                  disabled={loading}
-                >
-                  <RefreshCw className="mr-2" />
-                  Start Over, Why Not?
-                </Button>
+                <div className="flex gap-2 w-full">
+                    <Button asChild variant="outline" className="w-full">
+                        <Link href="/actions/comments?tab=comments-on-my-profile">
+                            <MessageSquare />
+                            <span>View Hate Mail</span>
+                        </Link>
+                    </Button>
+                    <Button
+                        onClick={handleRegenerate}
+                        variant="outline"
+                        className="w-full"
+                        disabled={loading}
+                        >
+                        <RefreshCw />
+                        <span>Start Over</span>
+                    </Button>
+                </div>
               </CardFooter>
             </Card>
           </main>
@@ -263,4 +313,3 @@ export default function ProfilePage() {
     </>
   );
 }
-

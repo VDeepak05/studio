@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from 'next/navigation'
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +21,9 @@ interface Comment {
 }
 
 export default function CommentsPage() {
+  const searchParams = useSearchParams()
+  const defaultTab = searchParams.get('tab') || 'my-comments'
+
   const [myComments, setMyComments] = useState<Comment[]>([]);
   const [commentsOnMyProfile, setCommentsOnMyProfile] = useState<Comment[]>([]);
   const [username, setUsername] = useState<string | null>(null);
@@ -67,7 +71,7 @@ export default function CommentsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="my-comments">
+              <Tabs defaultValue={defaultTab}>
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="my-comments">Comments You've Left</TabsTrigger>
                   <TabsTrigger value="comments-on-my-profile">Comments On Your Profile</TabsTrigger>

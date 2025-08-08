@@ -22,7 +22,7 @@ const QuestionSchema = z.object({
 });
 
 const GenerateQuestionsOutputSchema = z.object({
-  questions: z.array(QuestionSchema).length(4).describe('An array of 4 multiple-choice questions.'),
+  questions: z.array(QuestionSchema).length(5).describe('An array of 5 multiple-choice questions.'),
 });
 export type GenerateQuestionsOutput = z.infer<typeof GenerateQuestionsOutputSchema>;
 
@@ -34,6 +34,7 @@ export async function generateQuestions(input: GenerateQuestionsInput): Promise<
     { key: 'default2', text: 'What is your spirit animal?', options: ['A slightly deflated balloon', 'A majestic trash panda', 'A caffeinated squirrel', 'A philosophical sloth'] },
     { key: 'default3', text: 'How do you handle stress?', options: ['Internal screaming', 'Binge-watching shows I\'ve seen 10 times', 'Pretending it\'s not happening', 'Retail therapy'] },
     { key: 'default4', text: 'What\'s your biggest red flag?', options: ['I think pineapple on pizza is a personality trait', 'I use "literally" incorrectly', 'My camera roll is all memes', 'I still use Internet Explorer'] },
+    { key: 'default5', text: 'What is your ideal superpower?', options: ['The ability to find the remote', 'Knowing the wifi password everywhere', 'Muting people in real life', 'Perfectly parallel parking'] },
   ];
 
   // Add a final, open-ended question
@@ -53,8 +54,8 @@ const prompt = ai.definePrompt({
   output: {schema: GenerateQuestionsOutputSchema},
   prompt: `You are an AI for a satirical dating app called "404Love". Your task is to generate unique and funny multiple-choice questions for the user's profile questionnaire. The questions should be absurd, humorous, and poke fun at modern dating culture.
 
-Generate 4 multiple-choice questions. Each question must have 3-4 witty or ridiculous options.
-Ensure the questions are unique each time you are called. Do not repeat questions.
+Generate 5 multiple-choice questions. Each question must have 3-4 witty or ridiculous options.
+Ensure the questions are unique each time you are called. Do not repeat questions. Make them as funny as possible.
 
 Example Question:
 - Key: "idealFirstDate"

@@ -117,7 +117,7 @@ export default function ProfilePage() {
       const newStats = { ...currentStats, leftSwipes: currentStats.leftSwipes + 1 };
       localStorage.setItem("404love_stats", JSON.stringify(newStats));
       setStats(newStats);
-    }, 3000); // Update every 3 seconds
+    }, 25000); // Update every 25 seconds
 
     return () => clearInterval(statsInterval);
   }, []);

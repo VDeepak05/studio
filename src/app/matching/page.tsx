@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { HeartPulse } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { AppHeader } from "@/components/app-header";
+import { Sidebar, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const loadingMessages = [
   "Lowering your standards...",
@@ -44,18 +47,26 @@ export default function MatchingPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 text-center space-y-8">
-      <HeartPulse className="size-24 text-primary animate-ping" />
-      <div className="w-full max-w-md space-y-4">
-        <h1 className="text-4xl font-headline font-bold">
-          Searching for Disaster...
-        </h1>
-        <p className="text-xl text-muted-foreground h-6">{message}</p>
-        <Progress value={progress} className="w-full [&>div]:bg-primary" />
-      </div>
-      <p className="text-sm text-muted-foreground/50">
-        (Don't worry, this will all be over soon.)
-      </p>
-    </div>
+    <>
+        <Sidebar>
+            <AppSidebar />
+        </Sidebar>
+        <SidebarInset>
+            <AppHeader />
+            <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 text-center space-y-8">
+            <HeartPulse className="size-24 text-primary animate-ping" />
+            <div className="w-full max-w-md space-y-4">
+                <h1 className="text-4xl font-headline font-bold">
+                Searching for Disaster...
+                </h1>
+                <p className="text-xl text-muted-foreground h-6">{message}</p>
+                <Progress value={progress} className="w-full [&>div]:bg-primary" />
+            </div>
+            <p className="text-sm text-muted-foreground/50">
+                (Don't worry, this will all be over soon.)
+            </p>
+            </div>
+        </SidebarInset>
+    </>
   );
 }

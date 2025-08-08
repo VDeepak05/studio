@@ -79,6 +79,6 @@ const generateQuestionsFlow = ai.defineFlow(
     } catch (error) {
         console.error("Error generating questions, returning default.", error);
     }
-    return { questions: [] };
+    return null;
   }
 );

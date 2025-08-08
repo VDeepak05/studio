@@ -17,35 +17,18 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ArrowRight } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
-const questions = [
-  {
-    key: "pigeons",
-    text: "Do you believe pigeons are government spies?",
-    options: ["Obviously.", "No, that's ridiculous.", "I am a pigeon."],
-  },
-  {
-    key: "potato",
-    text: "Which potato shape best represents your emotional availability?",
-    options: ["A perfect, round potato.", "Mashed.", "French fry (long, thin, salty).", "A forgotten, sprouted one in the pantry."],
-  },
-  {
-    key: "dogs",
-    text: "Do you bark back at dogs?",
-    options: ["Only if they start it.", "I am the one who barks.", "Never."],
-  },
-  {
-    key: "swipes",
-    text: "Are you more left-swiped in life or in apps?",
-    options: ["In apps.", "In life.", "Both. Equally.", "What's a left swipe?"],
-  },
-  {
-    key: "additionalInfo",
-    text: "Anything else our AI should misinterpret about you?",
-    type: "textarea"
-  }
-];
+interface Question {
+  key: string;
+  text: string;
+  options?: string[];
+  type?: 'textarea';
+}
 
-export function QuestionnaireForm() {
+interface QuestionnaireFormProps {
+    questions: Question[];
+}
+
+export function QuestionnaireForm({ questions }: QuestionnaireFormProps) {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -98,7 +81,7 @@ export function QuestionnaireForm() {
             onValueChange={(value) => handleAnswerChange(currentQuestion.key, value)}
             className="space-y-2"
           >
-            {currentQuestion.options.map((option) => (
+            {currentQuestion.options?.map((option) => (
               <div key={option} className="flex items-center space-x-2">
                 <RadioGroupItem value={option} id={option} />
                 <Label htmlFor={option} className="text-base cursor-pointer">{option}</Label>

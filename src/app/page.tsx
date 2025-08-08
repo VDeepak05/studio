@@ -1,7 +1,59 @@
+
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AppHeader } from "@/components/app-header";
 import { QuestionnaireForm } from "@/components/questionnaire-form";
+import { Skeleton } from "@/components/ui/skeleton";
+import { generateQuestions } from "@/ai/flows/generate-questions";
 
 export default function Home() {
+  const router = useRouter();
+  const [questions, setQuestions] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const user = sessionStorage.getItem("404love_user");
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    const storedQuestions = sessionStorage.getItem("404love_questions");
+    if (storedQuestions) {
+      setQuestions(JSON.parse(storedQuestions));
+      setLoading(false);
+    } else {
+      generateQuestions({})
+        .then((res) => {
+          const generatedQuestions = res.questions.map(q => ({...q, key: q.key.toLowerCase().replace(/\s+/g, '_')}));
+          sessionStorage.setItem("404love_questions", JSON.stringify(generatedQuestions));
+          setQuestions(generatedQuestions);
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }
+  }, [router]);
+
+  if (loading || !questions) {
+    return (
+       <div className="min-h-screen flex flex-col">
+        <AppHeader />
+        <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
+          <div className="w-full max-w-2xl text-center space-y-4">
+            <Skeleton className="h-12 w-3/4 mx-auto" />
+            <Skeleton className="h-6 w-full mx-auto" />
+          </div>
+           <div className="w-full max-w-2xl mt-8 space-y-4">
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-10 w-32 ml-auto" />
+           </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <AppHeader />
@@ -14,7 +66,7 @@ export default function Home() {
             Answer these deeply profound questions to help our broken algorithm find someone you're 110% incompatible with.
           </p>
         </div>
-        <QuestionnaireForm />
+        <QuestionnaireForm questions={questions} />
       </main>
     </div>
   );

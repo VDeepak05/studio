@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { RefreshCw } from "lucide-react";
 
 const ridiculousTraits = [
   "Fluent in Sarcasm",
@@ -48,15 +50,31 @@ export default function ProfilePage() {
   const [bio, setBio] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const handleRegenerate = () => {
+    sessionStorage.removeItem("404love_answers");
+    sessionStorage.removeItem("404love_questions");
+    router.push("/");
+  };
+  
   useEffect(() => {
+    const user = sessionStorage.getItem("404love_user");
     const answersString = sessionStorage.getItem("404love_answers");
+
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    
     if (!answersString) {
+      // If there are no answers, they might have logged in but not filled the questionnaire.
+      // Or they are a returning user who wants to start over.
+      // Let's send them to the questionnaire page.
       router.push("/");
       return;
     }
 
     const answers = JSON.parse(answersString);
-    const additionalInfo = answers.additionalInfo || "Loves chaos.";
+    const additionalInfo = Object.values(answers).join(' ') || "Loves chaos.";
     const avatarDescription = answers.potato || "A human face, probably.";
     
     generateMemeBio({ additionalInfo }).then((res) => setBio(res.bio));
@@ -120,11 +138,20 @@ export default function ProfilePage() {
               </div>
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex-col gap-4">
             <Button asChild className="w-full" size="lg" disabled={loading}>
               <Link href="/matching">
                 {loading ? "Calibrating Disasters..." : "Find Your Next Mistake"}
               </Link>
+            </Button>
+            <Button
+              onClick={handleRegenerate}
+              variant="outline"
+              className="w-full"
+              disabled={loading}
+            >
+              <RefreshCw className="mr-2" />
+              Start Over, Why Not?
             </Button>
           </CardFooter>
         </Card>

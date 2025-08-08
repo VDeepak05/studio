@@ -27,7 +27,7 @@ const GenerateQuestionsOutputSchema = z.object({
 export type GenerateQuestionsOutput = z.infer<typeof GenerateQuestionsOutputSchema>;
 
 export async function generateQuestions(input: GenerateQuestionsInput): Promise<{questions: (z.infer<typeof QuestionSchema> & {type?: 'radio' | 'textarea'})[]}> {
-  const {output} = await generateQuestionsFlow(input);
+  const output = await generateQuestionsFlow(input);
 
   const questions = output?.questions ?? [
     { key: 'default1', text: 'Our AI is having an existential crisis. What is your favorite color?', options: ['Red', 'Blue', 'Green', 'The void'] },
@@ -71,7 +71,14 @@ const generateQuestionsFlow = ai.defineFlow(
     outputSchema: GenerateQuestionsOutputSchema,
   },
   async () => {
-    const {output} = await prompt({});
-    return output!;
+    try {
+      const {output} = await prompt({});
+      if (output) {
+        return output;
+      }
+    } catch (error) {
+        console.error("Error generating questions, returning default.", error);
+    }
+    return { questions: [] };
   }
 );

@@ -10,7 +10,7 @@ import { fakeUsers, FakeUser } from "@/lib/fake-users";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Ban, Heart, ThumbsUp } from "lucide-react";
+import { ArrowLeft, Ban, Heart, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function FakeUserProfilePage() {
@@ -104,6 +104,10 @@ export default function FakeUserProfilePage() {
                                 <Button className="w-full" onClick={() => handleAction('Like')}>
                                     <ThumbsUp className="mr-2" />
                                     Like
+                                </Button>
+                                <Button variant="secondary" className="w-full" onClick={() => handleAction('Dislike')}>
+                                    <ThumbsDown className="mr-2" />
+                                    Dislike
                                 </Button>
                                 <Button variant="destructive" className="w-full" onClick={() => handleAction('Block')}>
                                     <Ban className="mr-2" />

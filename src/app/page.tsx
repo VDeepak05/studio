@@ -42,12 +42,18 @@ export default function Home() {
 
     const storedQuestions = sessionStorage.getItem("404love_questions");
     if (storedQuestions) {
-      setQuestions(JSON.parse(storedQuestions));
+      // If we have questions in state, but not in session, it means we navigated back after "starting over"
+      // and we need to refetch.
+      if (!questions) {
+        setQuestions(JSON.parse(storedQuestions));
+      }
       setLoading(false);
     } else {
+      // Clear questions from state to ensure we show loading skeleton
+      setQuestions(null);
       fetchQuestions();
     }
-  }, [router]);
+  }, [router, questions]);
 
   if (loading || !questions) {
     return (

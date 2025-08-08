@@ -195,8 +195,8 @@ export default function ProfilePage() {
                 <div>
                   <h3 className="font-bold mb-2 text-primary text-center">Your Stats of Sadness</h3>
                   <div className="text-center text-muted-foreground">
-                    <p><span className="font-bold text-primary">{stats.rejects}</span> Rejects & Counting</p>
-                    <p><span className="font-bold text-accent">{stats.leftSwipes}</span> Dislikes</p>
+                    <p><span className="font-bold text-primary">{stats.rejects}</span> Rejects (more on the way)</p>
+                    <p><span className="font-bold text-accent">{stats.leftSwipes}</span> Dislikes, no wonder.</p>
                   </div>
                   <ChartContainer config={chartConfig} className="mx-auto aspect-video max-h-40 mt-4">
                     <BarChart accessibilityLayer data={chartData} margin={{left: 10, right: 10}}>

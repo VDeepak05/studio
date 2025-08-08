@@ -28,14 +28,24 @@ export type GenerateQuestionsOutput = z.infer<typeof GenerateQuestionsOutputSche
 export async function generateQuestions(input: GenerateQuestionsInput): Promise<GenerateQuestionsOutput> {
   const {output} = await generateQuestionsFlow(input);
 
+  if (!output?.questions) {
+    // Handle the case where the AI doesn't return questions, maybe return a default set or throw an error
+    return {
+      questions: [
+        { key: 'default', text: 'Our AI is having an existential crisis. What is your favorite color?', options: ['Red', 'Blue', 'Green', 'The void'] },
+        { key: 'additionalInfo', text: 'Anything else our AI should misinterpret about you?', options: [] }
+      ]
+    };
+  }
+
   // Add a final, open-ended question
-  output!.questions.push({
+  output.questions.push({
     key: 'additionalInfo',
     text: 'Anything else our AI should misinterpret about you?',
     options: [], // This will be rendered as a textarea
   });
 
-  return output!;
+  return output;
 }
 
 const prompt = ai.definePrompt({

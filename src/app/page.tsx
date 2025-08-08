@@ -28,19 +28,24 @@ export default function Home() {
       return;
     }
 
+    const fetchQuestions = () => {
+        setLoading(true);
+        generateQuestions({})
+            .then((res) => {
+                const generatedQuestions = res.questions.map(q => ({...q, key: q.key.toLowerCase().replace(/\s+/g, '_')}));
+                sessionStorage.setItem("404love_questions", JSON.stringify(generatedQuestions));
+                setQuestions(generatedQuestions);
+            })
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }
+
     const storedQuestions = sessionStorage.getItem("404love_questions");
     if (storedQuestions) {
       setQuestions(JSON.parse(storedQuestions));
       setLoading(false);
     } else {
-      generateQuestions({})
-        .then((res) => {
-          const generatedQuestions = res.questions.map(q => ({...q, key: q.key.toLowerCase().replace(/\s+/g, '_')}));
-          sessionStorage.setItem("404love_questions", JSON.stringify(generatedQuestions));
-          setQuestions(generatedQuestions);
-        })
-        .catch(console.error)
-        .finally(() => setLoading(false));
+      fetchQuestions();
     }
   }, [router]);
 

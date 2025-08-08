@@ -25,6 +25,7 @@ import {
   LogOut,
   ChevronDown,
   ThumbsDown,
+  Ban,
 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { useState } from "react";
@@ -96,6 +97,14 @@ export function AppSidebar() {
                                 <Link href="/actions/comments">
                                     <MessageSquare/>
                                     <span>Comments</span>
+                                </Link>
+                            </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                         <SidebarMenuSubItem>
+                            <SidebarMenuSubButton asChild isActive={pathname === '/actions/blocked'}>
+                                <Link href="/actions/blocked">
+                                    <Ban/>
+                                    <span>Blocked</span>
                                 </Link>
                             </SidebarMenuSubButton>
                         </SidebarMenuSubItem>

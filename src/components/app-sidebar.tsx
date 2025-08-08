@@ -13,11 +13,9 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
-  SidebarTrigger,
 } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
 import {
-  HeartCrack,
   User,
   MessageSquare,
   ThumbsUp,
@@ -45,14 +43,7 @@ export function AppSidebar() {
   return (
     <>
       <SidebarHeader>
-        <SidebarTrigger asChild>
-            <div className="flex items-center gap-3 p-2 cursor-pointer">
-              <HeartCrack className="text-primary size-8" />
-              <h1 className="text-2xl font-headline font-bold text-primary group-data-[collapsible=icon]:hidden">
-                  404Love
-              </h1>
-            </div>
-        </SidebarTrigger>
+        {/* The header is now handled by AppHeader to avoid duplication */}
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>

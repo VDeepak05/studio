@@ -110,16 +110,16 @@ export default function ProfilePage() {
   }, [router]);
   
   useEffect(() => {
-    // Interval to slowly increase left swipes
-    const swipeInterval = setInterval(() => {
-      setStats(prevStats => {
-        const newStats = { ...prevStats, leftSwipes: prevStats.leftSwipes + 1 };
-        localStorage.setItem("404love_stats", JSON.stringify(newStats));
-        return newStats;
-      });
-    }, 3000); // Increase every 3 seconds
+    // This interval now handles both left swipes and keeping the reject count in sync.
+    const statsInterval = setInterval(() => {
+      const storedStats = localStorage.getItem("404love_stats");
+      const currentStats = storedStats ? JSON.parse(storedStats) : { rejects: 0, leftSwipes: 0 };
+      const newStats = { ...currentStats, leftSwipes: currentStats.leftSwipes + 1 };
+      localStorage.setItem("404love_stats", JSON.stringify(newStats));
+      setStats(newStats);
+    }, 3000); // Update every 3 seconds
 
-    return () => clearInterval(swipeInterval);
+    return () => clearInterval(statsInterval);
   }, []);
 
   useEffect(() => {

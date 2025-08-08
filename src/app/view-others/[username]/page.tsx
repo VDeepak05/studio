@@ -45,14 +45,19 @@ export default function FakeUserProfilePage() {
             const currentStats = storedStats ? JSON.parse(storedStats) : { rejects: 0, leftSwipes: 0 };
             const newStats = { ...currentStats, rejects: currentStats.rejects + 1 };
             localStorage.setItem("404love_stats", JSON.stringify(newStats));
+            
+            // Store rejected user to remove them from the list
+            const rejectedUsers = JSON.parse(localStorage.getItem("404love_rejected") || "[]");
+            rejectedUsers.push(user.id);
+            localStorage.setItem("404love_rejected", JSON.stringify(rejectedUsers));
 
             toast({
                 title: "It's a No.",
                 description: `Shocker! ${user.username} rejected you. Your rejection count has been updated accordingly.`,
                 variant: "destructive",
             });
-            // Optionally, redirect to profile to see the updated stat
-            // router.push('/profile');
+            // Go back to the gallery to see the updated list
+            router.push('/view-others');
         }, 10000); // 10-second delay for dramatic effect
     };
 

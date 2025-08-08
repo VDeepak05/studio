@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AppHeader } from "@/components/app-header";
@@ -15,17 +15,26 @@ import { fakeUsers, FakeUser } from "@/lib/fake-users";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<FakeUser[]>(fakeUsers);
+  const [allUsers, setAllUsers] = useState<FakeUser[]>([]);
+  const [searchResults, setSearchResults] = useState<FakeUser[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+
+  useEffect(() => {
+    // In a real app, you might fetch this, but for now, we filter out rejected users
+    const rejectedUserIds: number[] = JSON.parse(localStorage.getItem("404love_rejected") || "[]");
+    const availableUsers = fakeUsers.filter(user => !rejectedUserIds.includes(user.id));
+    setAllUsers(availableUsers);
+    setSearchResults(availableUsers);
+  }, []);
 
   const handleSearch = () => {
     setHasSearched(true);
     if (!searchQuery) {
-      setSearchResults(fakeUsers);
+      setSearchResults(allUsers);
       return;
     }
     const lowercasedQuery = searchQuery.toLowerCase();
-    const results = fakeUsers.filter(user => 
+    const results = allUsers.filter(user => 
         user.username.toLowerCase().includes(lowercasedQuery) || 
         user.bio.toLowerCase().includes(lowercasedQuery) ||
         user.traits.some(trait => trait.toLowerCase().includes(lowercasedQuery))

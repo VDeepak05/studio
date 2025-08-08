@@ -67,6 +67,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
 
   const handleRegenerate = () => {
+    // Only remove answers and questions, keep stats
     localStorage.removeItem("404love_answers");
     localStorage.removeItem("404love_questions");
     router.push("/");
@@ -81,7 +82,7 @@ export default function ProfilePage() {
     const user = JSON.parse(userString);
     setUsername(user.username);
 
-    // Load stats from localStorage or initialize them
+    // Load stats from localStorage or initialize them if they don't exist at all
     const storedStats = localStorage.getItem("404love_stats");
     if (storedStats) {
       setStats(JSON.parse(storedStats));
@@ -103,8 +104,18 @@ export default function ProfilePage() {
     const additionalInfo = Object.values(answers).join(' ') || "Loves chaos.";
     const avatarDescription = answers.potato || "A human face, probably.";
     
+    // Generate and store avatar if it doesn't exist
+    const storedAvatar = localStorage.getItem("404love_avatar");
+    if (storedAvatar) {
+        setAvatar(storedAvatar);
+    } else {
+        generateGlitchedAvatar({ description: `A glitched, distorted, surrealist portrait of a person. Their most notable trait is: ${avatarDescription}` }).then((res) => {
+            setAvatar(res.avatarDataUri);
+            localStorage.setItem("404love_avatar", res.avatarDataUri);
+        });
+    }
+
     generateMemeBio({ additionalInfo }).then((res) => setBio(res.bio));
-    generateGlitchedAvatar({ description: `A glitched, distorted, surrealist portrait of a person. Their most notable trait is: ${avatarDescription}` }).then((res) => setAvatar(res.avatarDataUri));
 
   }, [router]);
   

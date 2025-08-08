@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { AppHeader } from "@/components/app-header";
@@ -10,8 +11,9 @@ import { fakeUsers } from "@/lib/fake-users";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Ban, Heart, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ArrowLeft, Ban, Heart, MessageSquare, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function FakeUserProfilePage() {
     const router = useRouter();
@@ -19,6 +21,7 @@ export default function FakeUserProfilePage() {
     const { toast } = useToast();
     const username = params.username as string;
     const user = fakeUsers.find(u => u.username === username);
+    const [comment, setComment] = useState("");
 
     if (!user) {
         return (
@@ -74,6 +77,44 @@ export default function FakeUserProfilePage() {
             variant: action === 'Block' ? "destructive" : "default"
         })
     };
+    
+    const handlePostComment = () => {
+        if (!comment.trim()) {
+            toast({
+                title: "Empty Comment",
+                description: "You can't just post nothing. This isn't a modern art gallery.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const currentUser = JSON.parse(localStorage.getItem("404love_user") || "{}");
+        if (!currentUser.username) {
+            toast({
+                title: "Error",
+                description: "You need to be logged in to leave a comment. Or do you?",
+                variant: "destructive"
+            });
+            return;
+        }
+
+        const allComments = JSON.parse(localStorage.getItem("404love_comments") || "[]");
+        const newComment = {
+            id: Date.now(),
+            fromUser: currentUser.username,
+            toUser: user.username,
+            comment: comment.trim(),
+            timestamp: new Date().toISOString(),
+        };
+        allComments.push(newComment);
+        localStorage.setItem("404love_comments", JSON.stringify(allComments));
+        
+        setComment("");
+        toast({
+            title: "Comment Posted!",
+            description: `You've successfully shouted into the void at ${user.username}. They probably won't see it.`,
+        });
+    }
 
     return (
         <>
@@ -108,6 +149,21 @@ export default function FakeUserProfilePage() {
                                 <h3 className="font-bold mb-2 text-primary text-center">Emotional Baggage</h3>
                                 <div className="flex flex-wrap gap-2 justify-center">
                                     {user.baggage.map(item => <Badge key={item} variant="outline">{item}</Badge>)}
+                                </div>
+                            </div>
+                            <div className="border-t pt-6">
+                                <h3 className="font-bold mb-2 text-primary text-center">Leave a Comment</h3>
+                                <div className="space-y-2">
+                                <Textarea 
+                                    placeholder={`Say something nice... or don't. We're not your mom.`}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    className="bg-card"
+                                />
+                                <Button className="w-full" onClick={handlePostComment}>
+                                    <MessageSquare className="mr-2" />
+                                    Post Your Nonsense
+                                </Button>
                                 </div>
                             </div>
                         </CardContent>

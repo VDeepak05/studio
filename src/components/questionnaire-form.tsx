@@ -21,7 +21,7 @@ interface Question {
   key: string;
   text: string;
   options?: string[];
-  type?: 'textarea';
+  type?: 'textarea' | 'radio';
 }
 
 interface QuestionnaireFormProps {
@@ -68,7 +68,7 @@ export function QuestionnaireForm({ questions }: QuestionnaireFormProps) {
         <CardDescription>Question {currentQuestionIndex + 1} of {questions.length}</CardDescription>
       </CardHeader>
       <CardContent>
-        {currentQuestion.type === 'textarea' ? (
+        {currentQuestion.type === 'textarea' || !currentQuestion.options || currentQuestion.options.length === 0 ? (
            <Textarea 
             placeholder="Spill the tea..."
             value={answers[currentQuestion.key] || ""}

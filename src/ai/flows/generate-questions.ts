@@ -18,6 +18,7 @@ const QuestionSchema = z.object({
   key: z.string().describe('A short, unique, camelCase key for the question. e.g. "zodiacSign"'),
   text: z.string().describe('The question text.'),
   options: z.array(z.string()).describe('An array of 3-4 humorous or absurd multiple-choice options.'),
+  type: z.enum(['radio', 'textarea']).optional().describe('The type of input for the question.'),
 });
 
 const GenerateQuestionsOutputSchema = z.object({
@@ -25,34 +26,32 @@ const GenerateQuestionsOutputSchema = z.object({
 });
 export type GenerateQuestionsOutput = z.infer<typeof GenerateQuestionsOutputSchema>;
 
-export async function generateQuestions(input: GenerateQuestionsInput): Promise<GenerateQuestionsOutput> {
+export async function generateQuestions(input: GenerateQuestionsInput): Promise<{questions: (z.infer<typeof QuestionSchema> & {type?: 'radio' | 'textarea'})[]}> {
   const {output} = await generateQuestionsFlow(input);
 
-  if (!output?.questions) {
-    // Handle the case where the AI doesn't return questions, maybe return a default set or throw an error
-    return {
-      questions: [
-        { key: 'default', text: 'Our AI is having an existential crisis. What is your favorite color?', options: ['Red', 'Blue', 'Green', 'The void'] },
-        { key: 'additionalInfo', text: 'Anything else our AI should misinterpret about you?', options: [] }
-      ]
-    };
-  }
+  const questions = output?.questions ?? [
+    { key: 'default1', text: 'Our AI is having an existential crisis. What is your favorite color?', options: ['Red', 'Blue', 'Green', 'The void'] },
+    { key: 'default2', text: 'What is your spirit animal?', options: ['A slightly deflated balloon', 'A majestic trash panda', 'A caffeinated squirrel', 'A philosophical sloth'] },
+    { key: 'default3', text: 'How do you handle stress?', options: ['Internal screaming', 'Binge-watching shows I\'ve seen 10 times', 'Pretending it\'s not happening', 'Retail therapy'] },
+    { key: 'default4', text: 'What\'s your biggest red flag?', options: ['I think pineapple on pizza is a personality trait', 'I use "literally" incorrectly', 'My camera roll is all memes', 'I still use Internet Explorer'] },
+  ];
 
   // Add a final, open-ended question
-  output.questions.push({
+  questions.push({
     key: 'additionalInfo',
     text: 'Anything else our AI should misinterpret about you?',
     options: [], // This will be rendered as a textarea
+    type: 'textarea',
   });
 
-  return output;
+  return { questions };
 }
 
 const prompt = ai.definePrompt({
   name: 'generateQuestionsPrompt',
   input: {schema: GenerateQuestionsInputSchema},
   output: {schema: GenerateQuestionsOutputSchema},
-  prompt: `You are an AI for a satirical dating app called "404Love". Your task is to generate 5 unique and funny multiple-choice questions for the user's profile questionnaire. The questions should be absurd, humorous, and poke fun at modern dating culture.
+  prompt: `You are an AI for a satirical dating app called "404Love". Your task is to generate unique and funny multiple-choice questions for the user's profile questionnaire. The questions should be absurd, humorous, and poke fun at modern dating culture.
 
 Generate 4 multiple-choice questions. Each question must have 3-4 witty or ridiculous options.
 Ensure the questions are unique each time you are called. Do not repeat questions.

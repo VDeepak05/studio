@@ -8,9 +8,17 @@ import { QuestionnaireForm } from "@/components/questionnaire-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { generateQuestions } from "@/ai/flows/generate-questions";
 
+interface Question {
+  key: string;
+  text: string;
+  options?: string[];
+  type?: 'textarea' | 'radio';
+}
+
+
 export default function Home() {
   const router = useRouter();
-  const [questions, setQuestions] = useState<any[] | null>(null);
+  const [questions, setQuestions] = useState<Question[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

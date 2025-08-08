@@ -2,16 +2,29 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import Image from "next/link";
+import Image from "next/image";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Sidebar, SidebarInset } from "@/components/ui/sidebar";
-import { fakeUsers, FakeUser } from "@/lib/fake-users";
+import { fakeUsers } from "@/lib/fake-users";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Ban, Heart, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+
+const chartConfig = {
+  rejects: {
+    label: "Rejects",
+    color: "hsl(var(--primary))",
+  },
+  leftSwipes: {
+    label: "Left Swipes",
+    color: "hsl(var(--accent))",
+  },
+} satisfies ChartConfig
 
 export default function FakeUserProfilePage() {
     const router = useRouter();
@@ -22,7 +35,12 @@ export default function FakeUserProfilePage() {
 
     if (!user) {
         return (
+          <>
+            <Sidebar>
+                <AppSidebar />
+            </Sidebar>
             <SidebarInset>
+                <AppHeader />
                 <div className="flex flex-col items-center justify-center min-h-screen">
                     <p className="text-2xl font-bold">User not found!</p>
                     <Button onClick={() => router.back()} className="mt-4">
@@ -31,8 +49,13 @@ export default function FakeUserProfilePage() {
                     </Button>
                 </div>
             </SidebarInset>
+          </>
         );
     }
+    
+    const chartData = [
+      { metric: "Stats", rejects: user.stats.rejects, leftSwipes: user.stats.leftSwipes },
+    ];
     
     const handleAskOut = () => {
         toast({
@@ -58,7 +81,7 @@ export default function FakeUserProfilePage() {
             });
             // Go back to the gallery to see the updated list
             router.push('/view-others');
-        }, 10000); // 10-second delay for dramatic effect
+        }, 3000); // 3-second delay for dramatic effect
     };
 
     const handleAction = (action: string) => {
@@ -80,7 +103,7 @@ export default function FakeUserProfilePage() {
                     <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
                         <Card className="w-full max-w-md animate-fade-in-up">
                         <CardHeader className="items-center text-center">
-                            <img
+                            <Image
                                 src={user.avatar}
                                 alt={`Profile picture of ${user.username}`}
                                 width={128}
@@ -92,11 +115,42 @@ export default function FakeUserProfilePage() {
                             <CardDescription className="text-lg px-2">{user.bio}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <div className="border-t pt-6">
-                            <h3 className="font-bold mb-2 text-primary text-center">Questionable Traits</h3>
-                            <div className="flex flex-wrap gap-2 justify-center">
-                                {user.traits.map(trait => <Badge key={trait} variant="secondary">{trait}</Badge>)}
+                            <div>
+                                <h3 className="font-bold mb-2 text-primary text-center">Stats of Sadness</h3>
+                                <div className="text-center text-muted-foreground">
+                                    <p><span className="font-bold text-primary">{user.stats.rejects}</span> Rejects & Counting</p>
+                                    <p><span className="font-bold text-accent">{user.stats.leftSwipes}</span> People Swiped Left</p>
+                                </div>
+                                <ChartContainer config={chartConfig} className="mx-auto aspect-video max-h-40 mt-4">
+                                    <BarChart accessibilityLayer data={chartData} margin={{left: 10, right: 10}}>
+                                    <CartesianGrid vertical={false} />
+                                    <XAxis
+                                        dataKey="metric"
+                                        tickLine={false}
+                                        tickMargin={10}
+                                        axisLine={false}
+                                        tickFormatter={() => ""}
+                                    />
+                                    <ChartTooltip
+                                        cursor={false}
+                                        content={<ChartTooltipContent indicator="dot" />}
+                                    />
+                                    <Bar dataKey="rejects" fill="var(--color-rejects)" radius={4} />
+                                    <Bar dataKey="leftSwipes" fill="var(--color-leftSwipes)" radius={4} />
+                                    </BarChart>
+                                </ChartContainer>
                             </div>
+                            <div className="border-t pt-6">
+                                <h3 className="font-bold mb-2 text-primary text-center">Ridiculous Traits</h3>
+                                <div className="flex flex-wrap gap-2 justify-center">
+                                    {user.traits.map(trait => <Badge key={trait} variant="secondary">{trait}</Badge>)}
+                                </div>
+                            </div>
+                             <div>
+                                <h3 className="font-bold mb-2 text-primary text-center">Emotional Baggage</h3>
+                                <div className="flex flex-wrap gap-2 justify-center">
+                                    {user.baggage.map(item => <Badge key={item} variant="outline">{item}</Badge>)}
+                                </div>
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-2">

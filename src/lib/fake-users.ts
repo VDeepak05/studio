@@ -5,6 +5,11 @@ export interface FakeUser {
   avatar: string;
   bio: string;
   traits: string[];
+  baggage: string[];
+  stats: {
+    rejects: number;
+    leftSwipes: number;
+  };
 }
 
 export const fakeUsers: FakeUser[] = [
@@ -14,6 +19,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Astrology isn't just a hobby, it's my entire personality. Fluent in Mercury retrograde.",
     traits: ["Believes in aliens", "Always late", "Has a crystal for everything"],
+    baggage: ["Saturn's return", "Unaspected Venus", "Too many tarot decks"],
+    stats: { rejects: 42, leftSwipes: 101 },
   },
   {
     id: 2,
@@ -21,6 +28,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Just a man looking for breadcrumbs. Coo.",
     traits: ["Good at finding statues", "Distrusts cats", "Will steal your fries"],
+    baggage: ["Fear of shiny things", "A single breadcrumb", "Memories of that one scary hawk"],
+    stats: { rejects: 8, leftSwipes: 243 },
   },
   {
     id: 3,
@@ -28,6 +37,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Seeking someone to join my quest for the perfect taco. It's a serious commitment.",
     traits: ["Owns 12 kinds of hot sauce", "Will judge your tortilla choice", "Thinks cilantro is essential"],
+    baggage: ["The ghost of a fallen taco", "An empty bottle of Valentina", "A deep-seated hatred for 'Taco Bell'"],
+    stats: { rejects: 17, leftSwipes: 88 },
   },
   {
     id: 4,
@@ -35,6 +46,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Lost my other half in the great wash of '22. Still searching for my sole-mate.",
     traits: ["Slightly damp", "Existential dread", "Hates dryers"],
+    baggage: ["Lint collection", "The trauma of the spin cycle", "A longing for its other half"],
+    stats: { rejects: 99, leftSwipes: 502 },
   },
   {
     id: 5,
@@ -42,6 +55,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My beats are sick and my naps are legendary. Mostly the naps.",
     traits: ["Can sleep anywhere", "Wears sunglasses indoors", "Vibes are immaculate"],
+    baggage: ["A half-finished remix", "An extensive pillow collection", "A dream journal"],
+    stats: { rejects: 5, leftSwipes: 67 },
   },
   {
     id: 6,
@@ -49,6 +64,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Night owl. Very pale. Hates garlic bread. What's not to love?",
     traits: ["Works the night shift", "Avoids the sun", "Weirdly formal"],
+    baggage: ["A dusty old coffin", "An aversion to stakes", "A collection of vintage capes"],
+    stats: { rejects: 1, leftSwipes: 890 },
   },
   {
     id: 7,
@@ -56,6 +73,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My love for you will be calculated and auditable. I have spreadsheets.",
     traits: ["Excited by VLOOKUP", "Thinks beige is a power color", "Uses a label maker for fun"],
+    baggage: ["A favorite stapler", "A passion for pivot tables", "The emotional weight of rounding errors"],
+    stats: { rejects: 23, leftSwipes: 45 },
   },
   {
     id: 8,
@@ -63,6 +82,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My 73 houseplants are my children. You will be expected to learn their names.",
     traits: ["Whispers encouragement to ferns", "Has a strong opinion on soil pH", "Asks plants for advice"],
+    baggage: ["A graveyard of overwatered succulents", "A single, thriving pothos", "A watering can shaped like an elephant"],
+    stats: { rejects: 11, leftSwipes: 112 },
   },
   {
     id: 9,
@@ -70,6 +91,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "...",
     traits: ["Great listener", "Trapped in an invisible box", "Expressive eyebrows"],
+    baggage: ["An imaginary rope", "A silent tear", "The key to the invisible box"],
+    stats: { rejects: 2, leftSwipes: 333 },
   },
   {
     id: 10,
@@ -77,6 +100,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "The earth is flat and birds are spies. DM me for the real truth.",
     traits: ["Wears a tin foil hat", "Owns a lot of red string", "Thinks mayonnaise is a government plot"],
+    baggage: ["Blurry photos of 'UFOs'", "A heavily redacted document", "A profound sense of paranoia"],
+    stats: { rejects: 50, leftSwipes: 250 },
   },
   {
     id: 11,
@@ -84,6 +109,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Looking for someone to be the butter to my bread. Or the avocado. I'm flexible.",
     traits: ["Crusty exterior", "Soft on the inside", "Prone to getting stale"],
+    baggage: ["A sourdough starter named 'Dough Exotic'", "A collection of bread knives", "The fear of mold"],
+    stats: { rejects: 15, leftSwipes: 75 },
   },
   {
     id: 12,
@@ -91,6 +118,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My love language is sharing my second controller. Don't touch my save file.",
     traits: ["Fueled by energy drinks", "Says 'gg ez' in arguments", "Knows too much lore"],
+    baggage: ["An unfinished side quest", "A backlog of 200+ games", "The rage of a thousand corrupted save files"],
+    stats: { rejects: 30, leftSwipes: 150 },
   },
   {
     id: 13,
@@ -98,6 +127,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Let's get physical! And by physical, I mean emotionally distant.",
     traits: ["Owns too much neon spandex", "High kicks when excited", "Constantly says 'Feel the burn!'"],
+    baggage: ["A collection of leg warmers", "A Betamax copy of a Jane Fonda workout", "A persistent knee injury"],
+    stats: { rejects: 12, leftSwipes: 99 },
   },
   {
     id: 14,
@@ -105,6 +136,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My library has more volumes than your life has problems. Let's discuss both over tea.",
     traits: ["Smells faintly of old books", "Corrects your grammar", "Uses words like 'defenestration' casually"],
+    baggage: ["A first edition of a book no one's heard of", "An overwhelming to-be-read pile", "A single, leather-bound bookmark"],
+    stats: { rejects: 3, leftSwipes: 200 },
   },
   {
     id: 15,
@@ -112,6 +145,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Glub. Glub glub. ... Glub.",
     traits: ["3-second memory", "Easily impressed", "Lives in a castle"],
+    baggage: ["A vague memory of a plastic bag", "A single decorative pebble", "The concept of 'more food'"],
+    stats: { rejects: 100, leftSwipes: 100 },
   },
   {
     id: 16,
@@ -119,6 +154,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Did I mention I do CrossFit? Because I do CrossFit. Let's talk about my WOD.",
     traits: ["Never skips leg day", "Calls everything 'functional strength'", "Grunts"],
+    baggage: ["A tub of protein powder", "Calloused hands", "A deep-seated need for validation"],
+    stats: { rejects: 25, leftSwipes: 125 },
   },
   {
     id: 17,
@@ -126,6 +163,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Hark, fair maiden! I seek a damsel to join me at the Renaissance Faire. Mead's on me.",
     traits: ["Says 'Huzzah!' unironically", "Owns chainmail", "Can recite Beowulf from memory"],
+    baggage: ["A wooden turkey leg", "A slightly dented helmet", "A questionable accent"],
+    stats: { rejects: 18, leftSwipes: 80 },
   },
   {
     id: 18,
@@ -133,6 +172,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I like my relationships like I like my cereal: in a bowl, with milk, and finished in 5 minutes.",
     traits: ["Mixes 3 types of cereal at once", "Knows the prize is always at the bottom", "Eats cereal for dinner"],
+    baggage: ["A collection of tiny plastic toys", "A strong opinion on milk-first vs. cereal-first", "A cabinet full of expired cereal"],
+    stats: { rejects: 33, leftSwipes: 111 },
   },
   {
     id: 19,
@@ -140,6 +181,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Now you see me, now you don't. Perfect for ghosting.",
     traits: ["Has a rabbit in a hat", "Always has a card up their sleeve", "Says 'Is this your card?' to everything"],
+    baggage: ["A deck of trick cards", "A bouquet of fake flowers", "A profound sense of misdirection"],
+    stats: { rejects: 7, leftSwipes: 407 },
   },
   {
     id: 20,
@@ -147,6 +190,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I listen to sad indie music and write poetry about the rain. Let's be melancholic together.",
     traits: ["Wears a beanie in summer", "Thinks everything is a metaphor", "Sighs a lot"],
+    baggage: ["A collection of Smiths records", "A tattered copy of a poetry book", "A single, perfect tear"],
+    stats: { rejects: 22, leftSwipes: 222 },
   },
   {
     id: 21,
@@ -154,6 +199,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Are we but fleeting moments in a cold, indifferent universe? Also, what's your favorite pizza topping?",
     traits: ["Reads Camus on the bus", "Stares into the void", "Asks 'but what does it MEAN?'"],
+    baggage: ["A well-worn turtleneck", "A copy of 'Being and Nothingness'", "The crushing weight of consciousness"],
+    stats: { rejects: 6, leftSwipes: 314 },
   },
   {
     id: 22,
@@ -161,6 +208,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I have the energy of a thousand suns and the attention span of a gnat. LET'S GO!",
     traits: ["Speaks in ALL CAPS", "Fueled by espresso and glitter", "Has no indoor voice"],
+    baggage: ["A half-empty can of Red Bull", "A collection of rave flyers", "An inability to sit still"],
+    stats: { rejects: 40, leftSwipes: 200 },
   },
   {
     id: 23,
@@ -168,6 +217,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Are you a Wi-Fi signal? Because I'm feeling a connection. I have a million of these.",
     traits: ["Laughs at his own jokes", "Wears New Balance sneakers", "Calls you 'champ'"],
+    baggage: ["A cargo shorts pocket full of bad puns", "A grill spatula", "An unshakeable belief that he's hilarious"],
+    stats: { rejects: 35, leftSwipes: 95 },
   },
   {
     id: 24,
@@ -175,6 +226,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "You'll have to get through my three phases and my giant weak spot to win my heart.",
     traits: ["Has epic theme music", "Invulnerable to most attacks", "Drops legendary loot"],
+    baggage: ["A health bar with three segments", "A glowing weak spot", "An army of minions"],
+    stats: { rejects: 999, leftSwipes: 9999 },
   },
   {
     id: 25,
@@ -182,6 +235,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "This isn't even my final form. Looking for the Senpai to my Kouhai.",
     traits: ["Screams 'Nani?!'", "Believes in the power of friendship", "Has watched all 900+ episodes of One Piece"],
+    baggage: ["A wall scroll of her favorite character", "A collection of Pocky", "The belief that she can run with her arms behind her back"],
+    stats: { rejects: 28, leftSwipes: 178 },
   },
   {
     id: 26,
@@ -189,6 +244,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I can bend over backwards to meet your needs, literally.",
     traits: ["Fits in small spaces", "Pretzel-like", "Emotionally flexible (no, not really)"],
+    baggage: ["A yoga mat", "A deep understanding of anatomy", "The ability to get out of any awkward hug"],
+    stats: { rejects: 14, leftSwipes: 70 },
   },
   {
     id: 27,
@@ -196,6 +253,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Boo. I'm great at ghosting, obviously.",
     traits: ["Walks through walls", "Unfinished business", "A bit transparent"],
+    baggage: ["A rattling chain", "A cold spot in the room", "The memory of being alive"],
+    stats: { rejects: 1, leftSwipes: 1000 },
   },
   {
     id: 28,
@@ -203,6 +262,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm not saying I'm the funniest person, but my jokes are always pun-intentional.",
     traits: ["Has a pun for every occasion", "Groans are her fuel", "Will never stop"],
+    baggage: ["A mental Rolodex of puns", "A collection of 'World's Best Dad' mugs", "A slightly pained smile"],
+    stats: { rejects: 38, leftSwipes: 138 },
   },
   {
     id: 29,
@@ -210,6 +271,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I have a quest for you. The reward is my affection. The quest is to find my keys.",
     traits: ["Repeats the same three lines", "Stares blankly", "Walks into walls"],
+    baggage: ["A single, cryptic clue", "An inventory with only one item", "A predetermined path"],
+    stats: { rejects: 55, leftSwipes: 55 },
   },
   {
     id: 30,
@@ -217,6 +280,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Don't you want to date yourself? I'm you, but with a slightly evil goatee.",
     traits: ["Knows all your secrets", "A bit unsettling", "Probably from a mirror dimension"],
+    baggage: ["An identical but slightly off wardrobe", "A knowledge of your most embarrassing moments", "A sinister laugh"],
+    stats: { rejects: 1, leftSwipes: 1 },
   },
   {
     id: 31,
@@ -224,6 +289,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm disrupting the dating industry with my blockchain-based synergy. Let's pivot to a relationship.",
     traits: ["Asks 'Have you heard of this startup?'", "Wears a Patagonia vest", "Talks about 'scalability'"],
+    baggage: ["Stock options in a failed startup", "A strong opinion on React vs. Vue", "A single AirPod"],
+    stats: { rejects: 45, leftSwipes: 190 },
   },
   {
     id: 32,
@@ -231,6 +298,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I will probably disappoint you, and I still use Internet Explorer.",
     traits: ["No filter", "Will tell you if you have food in your teeth", "Painfully sincere"],
+    baggage: ["A complete lack of subtlety", "A history of accidentally offending people", "The truth, the whole truth, and nothing but the truth"],
+    stats: { rejects: 60, leftSwipes: 60 },
   },
   {
     id: 33,
@@ -238,6 +307,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "He sat across from his date, wondering if she, too, felt the crushing weight of existence. She did.",
     traits: ["Speaks in third person", "Morgan Freeman voice", "Adds dramatic pauses"],
+    baggage: ["A sense of dramatic irony", "An omniscient point of view", "A well-worn copy of a script"],
+    stats: { rejects: 4, leftSwipes: 444 },
   },
   {
     id: 34,
@@ -245,6 +316,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My plan for world domination is almost complete. I just need a partner for my evil laugh.",
     traits: ["Has a lair", "Owns a white cat", "Monologues"],
+    baggage: ["A half-finished doomsday device", "A map of the world with pushpins", "A revolving chair"],
+    stats: { rejects: 1, leftSwipes: 500 },
   },
   {
     id: 35,
@@ -252,6 +325,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "You can't sit with us. Unless you're cute. Maybe.",
     traits: ["Wears pink on Wednesdays", "Knows everyone's business", "Is so not a regular mom"],
+    baggage: ["A Burn Book", "A tiny, useless purse", "A legion of followers"],
+    stats: { rejects: 200, leftSwipes: 20 },
   },
   {
     id: 36,
@@ -259,6 +334,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I love everyone and everything! Squirrel! Let's go for a walk! I love you!",
     traits: ["Easily excited", "Needs head pats", "Will fetch"],
+    baggage: ["A slobbery tennis ball", "An eternal sense of optimism", "A leash"],
+    stats: { rejects: 0, leftSwipes: 30 },
   },
   {
     id: 37,
@@ -266,6 +343,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My talents include sleeping for 12 hours straight and competitive napping.",
     traits: ["Always tired", "Owns 15 pillows", "Hibernates in winter"],
+    baggage: ["A weighted blanket", "A silk eye mask", "A constant state of drowsiness"],
+    stats: { rejects: 9, leftSwipes: 49 },
   },
   {
     id: 38,
@@ -273,6 +352,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I seem to have misplaced my map and my sense of direction. Can you point me towards your heart?",
     traits: ["Wears a fanny pack", "Says 'wow' a lot", "Takes pictures of everything"],
+    baggage: ["A foreign coin collection", "A map that's folded wrong", "A sense of wonder and confusion"],
+    stats: { rejects: 29, leftSwipes: 129 },
   },
   {
     id: 39,
@@ -280,6 +361,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "*softly whispers* Let's... go... on a... date. *taps microphone gently*",
     traits: ["Never speaks above a whisper", "Makes everything sound relaxing", "Owns a lot of weird brushes"],
+    baggage: ["A high-quality microphone", "A collection of things that make crinkly sounds", "An overwhelming sense of calm"],
+    stats: { rejects: 19, leftSwipes: 79 },
   },
   {
     id: 40,
@@ -287,6 +370,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I haven't left my house in 6 months. You'd have to be pretty special to change that.",
     traits: ["Great Wi-Fi", "Expert in solitude", "Friends with the spiders"],
+    baggage: ["A well-stocked pantry", "A library of books", "A deep-seated aversion to people"],
+    stats: { rejects: 2, leftSwipes: 100 },
   },
   {
     id: 41,
@@ -294,6 +379,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My art explores the liminal space between despair and a good cup of coffee. You wouldn't get it.",
     traits: ["Wears a single black turtleneck", "Calls everything 'derivative'", "Cries in museums"],
+    baggage: ["A half-finished canvas", "A tube of expensive paint", "A profound sense of being misunderstood"],
+    stats: { rejects: 51, leftSwipes: 151 },
   },
   {
     id: 42,
@@ -301,6 +388,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm here to teach you how to love again with my quirky hats and ukulele songs!",
     traits: ["Has bangs", "Laughs in the rain", "Exists only to help a sad man grow"],
+    baggage: ["A ukulele", "A collection of whimsical tights", "A complete lack of personal needs or desires"],
+    stats: { rejects: 10, leftSwipes: 310 },
   },
   {
     id: 43,
@@ -308,6 +397,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Looking for someone who will share their snacks. And their fries. And their dessert. I am always hungry.",
     traits: ["Pockets full of snacks", "Can hear a bag of chips open from a mile away", "Asks 'Are you gonna finish that?'"],
+    baggage: ["An emergency granola bar", "A map of the best vending machines", "A bottomless stomach"],
+    stats: { rejects: 34, leftSwipes: 94 },
   },
   {
     id: 44,
@@ -315,6 +406,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Ready to sweep you off your feet.",
     traits: ["Great at cleaning up messes", "A bit stiff", "Stands in corners"],
+    baggage: ["A dustpan", "A collection of dust bunnies", "A sense of purpose"],
+    stats: { rejects: 77, leftSwipes: 77 },
   },
   {
     id: 45,
@@ -322,6 +415,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "The Room is a masterpiece and Sharknado is high art. I will not be taking questions at this time.",
     traits: ["Quotes terrible movies", "Knows the entire plot of 'Gigli'", "Loves continuity errors"],
+    baggage: ["A DVD collection of Nicolas Cage movies", "A strong opinion on 'so bad it's good'", "A well-worn copy of 'The Room'"],
+    stats: { rejects: 27, leftSwipes: 127 },
   },
   {
     id: 46,
@@ -329,6 +424,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm from the future. We end up together. Just trying to speed things up.",
     traits: ["A bit anachronistic", "Warns you about future events", "Has a weird watch"],
+    baggage: ["A broken time machine part", "A knowledge of future stock prices", "A sense of temporal displacement"],
+    stats: { rejects: 1, leftSwipes: 999 },
   },
   {
     id: 47,
@@ -336,6 +433,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "This is a dating app. We are both on it. You are reading my profile.",
     traits: ["States the painfully obvious", "Very literal", "The sky is blue"],
+    baggage: ["A label maker", "A dictionary", "A complete lack of imagination"],
+    stats: { rejects: 88, leftSwipes: 88 },
   },
   {
     id: 48,
@@ -343,6 +442,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm unpaid and over-caffeinated. Please date me for the free meals.",
     traits: ["Expert at coffee runs", "Sleep-deprived", "Full of desperate ambition"],
+    baggage: ["A mountain of student debt", "A single, well-worn suit", "A dream of one day being paid"],
+    stats: { rejects: 48, leftSwipes: 148 },
   },
   {
     id: 49,
@@ -350,6 +451,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm fun, I'm sparkly, and I'll get everywhere and you'll never be rid of me.",
     traits: ["Leaves a trail of glitter", "A bit much", "Loves explosions of joy"],
+    baggage: ["A small vial of glitter for emergencies", "A craft store membership card", "The knowledge that you can never truly clean up glitter"],
+    stats: { rejects: 49, leftSwipes: 490 },
   },
   {
     id: 50,
@@ -357,6 +460,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I enjoy hoarding gold, long flights, and setting my enemies on fire. Looking for a princess to not eat.",
     traits: ["Breathes fire when annoyed", "Sleeps on a pile of treasure", "Scaly"],
+    baggage: ["A single, perfect gold coin", "A collection of charred knight helmets", "A deep, rumbling voice"],
+    stats: { rejects: 1000, leftSwipes: 10000 },
   },
   {
     id: 51,
@@ -364,6 +469,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Beep... beep... I'm hungry. And lonely. Please don't let me die.",
     traits: ["High maintenance", "Needy", "Covered in pixelated poop"],
+    baggage: ["A low battery", "A constant beeping sound", "A deep-seated fear of neglect"],
+    stats: { rejects: 510, leftSwipes: 510 },
   },
   {
     id: 52,
@@ -371,6 +478,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "If a tree falls in the forest and no one is around, are we still single?",
     traits: ["Asks too many questions", "Strokes chin thoughtfully", "Confuses everyone"],
+    baggage: ["A collection of unanswerable questions", "A well-worn copy of Plato's 'Republic'", "A profound sense of intellectual superiority"],
+    stats: { rejects: 52, leftSwipes: 252 },
   },
   {
     id: 53,
@@ -378,6 +487,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'll spoil the end of your favorite show and our relationship on the first date.",
     traits: ["Has no chill", "Loves to ruin surprises", "Knows who dies in everything"],
+    baggage: ["A list of movie endings", "A complete lack of tact", "The joy of someone else's misery"],
+    stats: { rejects: 530, leftSwipes: 53 },
   },
   {
     id: 54,
@@ -385,6 +496,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Shhh! I'm looking for someone who appreciates the Dewey Decimal System and quiet desperation.",
     traits: ["Whispers aggressively", "Wears glasses on a chain", "Will fine you for being late"],
+    baggage: ["A card catalog", "A rubber stamp", "A deep and abiding love for silence"],
+    stats: { rejects: 5, leftSwipes: 105 },
   },
   {
     id: 55,
@@ -392,6 +505,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I was the quarterback of the football team. It was the best year of my life. I'm 42.",
     traits: ["Still wears his letterman jacket", "Tells the same three stories", "Calls everyone 'chief'"],
+    baggage: ["A faded prom photo", "A state championship ring", "A profound sense of nostalgia"],
+    stats: { rejects: 55, leftSwipes: 155 },
   },
   {
     id: 56,
@@ -399,6 +514,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "For our date, I will be playing the role of a man who is deeply in love. It will be very convincing.",
     traits: ["Never breaks character", "Asks 'What's my motivation?'", "Emotionally unavailable for real"],
+    baggage: ["A dog-eared script", "A collection of fake noses", "A complete lack of a real personality"],
+    stats: { rejects: 56, leftSwipes: 256 },
   },
   {
     id: 57,
@@ -406,6 +523,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm a bit nebulous and prone to raining on parades. Looking for my silver lining.",
     traits: ["Drifts aimlessly", "Changes shape", "Full of water"],
+    baggage: ["A single raindrop", "A bolt of lightning", "A vague sense of foreboding"],
+    stats: { rejects: 57, leftSwipes: 157 },
   },
   {
     id: 58,
@@ -413,6 +532,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "#LiveLaughLift. My life is perfect and so am I. Join my downline for a 10% discount on terrible protein powder.",
     traits: ["Takes pictures of her abs", "Says 'Rise and grind!'", "Everything is #sponsored"],
+    baggage: ["A ring light", "A collection of matching workout sets", "A deep-seated insecurity masked by relentless positivity"],
+    stats: { rejects: 158, leftSwipes: 58 },
   },
   {
     id: 59,
@@ -420,6 +541,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I can get out of any awkward situation, including this date.",
     traits: ["Can pick any lock", "Disappears in a puff of smoke", "Hard to pin down"],
+    baggage: ["A set of lock picks", "A smoke bomb", "A history of disappearing acts"],
+    stats: { rejects: 59, leftSwipes: 590 },
   },
   {
     id: 60,
@@ -427,6 +550,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My soul is as black as my coffee. I wrote a poem about a dead raven. Want to hear it?",
     traits: ["Only wears black", "Finds beauty in decay", "Thinks sunny days are 'oppressive'"],
+    baggage: ["A collection of Cure CDs", "A vial of black nail polish", "A profound sense of ennui"],
+    stats: { rejects: 60, leftSwipes: 160 },
   },
   {
     id: 61,
@@ -434,6 +559,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "What's the deal with dating apps? Anyway, my set is at 8 at The Chuckle Hut. Please come.",
     traits: ["Ends every sentence with a punchline", "Desperate for validation", "Sees everything as 'material'"],
+    baggage: ["A notebook full of half-baked jokes", "A crippling fear of silence", "A single spotlight"],
+    stats: { rejects: 61, leftSwipes: 610 },
   },
   {
     id: 62,
@@ -441,6 +568,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I promise I'll get out of bed eventually. Maybe.",
     traits: ["Just five more minutes", "Chronically late", "Loves mornings, just not in the AM"],
+    baggage: ["A tangled pile of blankets", "A phone with 17 alarms set", "A deep-seated resentment for the morning"],
+    stats: { rejects: 62, leftSwipes: 62 },
   },
   {
     id: 63,
@@ -448,6 +577,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm looking for a sophisticated partner to discuss the nuances of a good brie. Also, I'm very lonely.",
     traits: ["A bit stinky", "Complex and aged", "Pairs well with wine"],
+    baggage: ["A fancy cheese knife", "A collection of artisanal crackers", "A profound sense of loneliness"],
+    stats: { rejects: 6, leftSwipes: 36 },
   },
   {
     id: 64,
@@ -455,6 +586,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "The end is nigh. My bunker is stocked with canned goods and board games. You in?",
     traits: ["Has a go-bag", "Knows multiple uses for duct tape", "Sees zombies everywhere"],
+    baggage: ["A gas mask", "A 10-year supply of Twinkies", "A map with an escape route"],
+    stats: { rejects: 64, leftSwipes: 164 },
   },
   {
     id: 65,
@@ -462,6 +595,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm a left shoe looking for my right. Last seen on the side of the highway.",
     traits: ["Well-traveled", "A bit worn out", "Has a strong tongue"],
+    baggage: ["A broken shoelace", "A single, lonely sock", "The memory of a foot"],
+    stats: { rejects: 650, leftSwipes: 65 },
   },
   {
     id: 66,
@@ -469,6 +604,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I can make your Sunday afternoon disappear! And also this coin.",
     traits: ["Pulls quarters from behind your ear", "A bit awkward", "Wears a cape sometimes"],
+    baggage: ["A deck of cards", "A top hat", "A profound sense of wonder"],
+    stats: { rejects: 66, leftSwipes: 166 },
   },
   {
     id: 67,
@@ -476,6 +613,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "On our first date, I'll tell you about my childhood trauma and my weird rash. It's fine.",
     traits: ["No boundaries", "TMI is my middle name", "Very open book"],
+    baggage: ["A diary that's not locked", "A history of awkward first dates", "A complete lack of a filter"],
+    stats: { rejects: 670, leftSwipes: 67 },
   },
   {
     id: 68,
@@ -483,6 +622,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Greetings, fellow human. I enjoy Earth activities like 'breathing' and 'paying taxes'.",
     traits: ["A bit stiff", "Asks weird questions about 'your customs'", "Sweats green"],
+    baggage: ["A broken spaceship part", "A book on 'How to Be Human'", "A longing for the home planet"],
+    stats: { rejects: 68, leftSwipes: 680 },
   },
   {
     id: 69,
@@ -490,6 +631,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'll take a picture of our food before you can eat it. It's for my blog. You understand.",
     traits: ["Knows the chef", "Uses words like 'mouthfeel'", "Deconstructs everything"],
+    baggage: ["A high-end camera", "A collection of restaurant menus", "A profound sense of culinary superiority"],
+    stats: { rejects: 69, leftSwipes: 169 },
   },
   {
     id: 70,
@@ -497,6 +640,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm like Bigfoot, but with more emotional baggage. All my photos are blurry.",
     traits: ["Hard to find", "Leaves large footprints", "A local legend"],
+    baggage: ["A blurry photo", "A plaster cast of a footprint", "A sense of mystery"],
+    stats: { rejects: 70, leftSwipes: 700 },
   },
   {
     id: 71,
@@ -504,6 +649,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Let's dim the lights, put on some Kenny G, and talk about our feelings. Or not.",
     traits: ["Owns a saxophone", "Unbuttoned shirt", "Unbearably smooth"],
+    baggage: ["A collection of smooth jazz CDs", "A bottle of cheap wine", "A profound sense of cheesiness"],
+    stats: { rejects: 71, leftSwipes: 171 },
   },
   {
     id: 72,
@@ -511,6 +658,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Oh, you went to Paris? I went to the moon. It was okay.",
     traits: ["Has done everything, but better", "A bit exhausting", "Always wins at conversations"],
+    baggage: ["A collection of trophies", "A book of world records", "A deep-seated need to be the best"],
+    stats: { rejects: 720, leftSwipes: 72 },
   },
   {
     id: 73,
@@ -518,6 +667,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "01001001 00100000 01101100 01101111 01110110 01100101 00100000 01111001 01101111 01110101",
     traits: ["Knows everything about you", "A bit cold", "Might take over the world"],
+    baggage: ["The entire internet", "A single line of code", "A profound sense of existential dread"],
+    stats: { rejects: 101, leftSwipes: 1010 },
   },
   {
     id: 74,
@@ -525,6 +676,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Your lucky numbers are 4, 8, 15, 16, 23, 42. A great fortune is coming your way (it's me).",
     traits: ["Speaks in vague prophecies", "Always has cookies", "A bit crunchy"],
+    baggage: ["A collection of vague fortunes", "A list of lucky numbers", "A sense of impending doom"],
+    stats: { rejects: 74, leftSwipes: 174 },
   },
   {
     id: 75,
@@ -532,6 +685,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "It's alive! My creation... of the perfect dating profile! Now, to find a test subject...",
     traits: ["Wild hair", "Maniacal laugh", "Owns a lot of beakers"],
+    baggage: ["A collection of bubbling beakers", "A Tesla coil", "A profound sense of scientific curiosity"],
+    stats: { rejects: 75, leftSwipes: 275 },
   },
   {
     id: 76,
@@ -539,6 +694,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm a great listener and I look good in everything. A bit plastic, though.",
     traits: ["Stands very still", "Emotionless", "Always fashionable"],
+    baggage: ["A price tag", "A collection of wigs", "A profound sense of emptiness"],
+    stats: { rejects: 760, leftSwipes: 76 },
   },
   {
     id: 77,
@@ -546,6 +703,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "You probably haven't heard of my favorite movie. It's very obscure.",
     traits: ["Only watches black and white films", "Hates Marvel", "Talks about cinematography"],
+    baggage: ["A Criterion Collection subscription", "A well-worn copy of a foreign film", "A profound sense of cinematic superiority"],
+    stats: { rejects: 77, leftSwipes: 177 },
   },
   {
     id: 78,
@@ -553,6 +712,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm universally disliked and I always come too soon.",
     traits: ["Requires coffee to function", "A bit of a drag", "Makes you feel tired"],
+    baggage: ["An overflowing inbox", "A sense of impending doom", "A case of the Mondays"],
+    stats: { rejects: 780, leftSwipes: 78 },
   },
   {
     id: 79,
@@ -560,6 +721,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'll write a better bio tomorrow.",
     traits: ["Will text you back next week", "Always 'getting around to it'", "Loves deadlines, especially the whooshing sound they make as they fly by"],
+    baggage: ["A to-do list from last year", "A collection of unfinished projects", "A profound sense of 'I'll do it later'"],
+    stats: { rejects: 79, leftSwipes: 279 },
   },
   {
     id: 80,
@@ -567,6 +730,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Actually, the proper term is... [citation needed].",
     traits: ["Starts sentences with 'Well, actually...'", "Knows random facts", "A bit pedantic"],
+    baggage: ["A collection of footnotes", "A well-worn library card", "A deep-seated need to be right"],
+    stats: { rejects: 80, leftSwipes: 180 },
   },
   {
     id: 81,
@@ -574,6 +739,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My 12 cats and I are a package deal. They will judge you.",
     traits: ["Covered in cat hair", "Speaks to cats in a special voice", "Thinks cats are superior to humans"],
+    baggage: ["A lint roller", "A collection of cat toys", "A profound sense of feline superiority"],
+    stats: { rejects: 8, leftSwipes: 108 },
   },
   {
     id: 82,
@@ -581,6 +748,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My dog is my best friend. You can be my second best friend.",
     traits: ["Has more photos of his dog than himself", "Calls his dog 'my son'", "Asks 'Who's a good boy?' to everyone"],
+    baggage: ["A collection of dog bandanas", "A well-worn leash", "A deep and abiding love for his dog"],
+    stats: { rejects: 8, leftSwipes: 208 },
   },
   {
     id: 83,
@@ -588,6 +757,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I own one bowl, one spoon, and one chair. I'm looking for my one and only. Or not. Less is more.",
     traits: ["Everything is white", "Dislikes clutter", "Finds joy in owning nothing"],
+    baggage: ["A single, perfect vase", "A book on 'The Life-Changing Magic of Tidying Up'", "A profound sense of emptiness"],
+    stats: { rejects: 83, leftSwipes: 183 },
   },
   {
     id: 84,
@@ -595,6 +766,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My apartment is a chaotic explosion of color and stuff. Come get lost in it with me.",
     traits: ["More is more", "Collects everything", "Loves tchotchkes"],
+    baggage: ["A collection of mismatched teacups", "A gallery wall of flea market art", "A profound sense of 'I might need this someday'"],
+    stats: { rejects: 84, leftSwipes: 284 },
   },
   {
     id: 85,
@@ -602,6 +775,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I jump out of planes for fun. Dating you is probably scarier.",
     traits: ["No fear", "Broken multiple bones", "Says 'Hold my beer' a lot"],
+    baggage: ["A parachute", "A collection of scars", "A deep-seated need for an adrenaline rush"],
+    stats: { rejects: 850, leftSwipes: 85 },
   },
   {
     id: 86,
@@ -609,6 +784,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My perfect date is not leaving the house. We can watch Netflix and not talk.",
     traits: ["Loves sweatpants", "Has a favorite spot on the couch", "Thinks going out is overrated"],
+    baggage: ["A well-worn pair of slippers", "A Netflix subscription", "A deep and abiding love for their own couch"],
+    stats: { rejects: 8, leftSwipes: 68 },
   },
   {
     id: 87,
@@ -616,6 +793,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I live for my art. I also live on ramen noodles. Please buy my art.",
     traits: ["Passionate but poor", "Sees beauty in suffering", "Always covered in paint"],
+    baggage: ["A collection of unsold paintings", "A single, well-worn paintbrush", "A profound sense of artistic angst"],
+    stats: { rejects: 87, leftSwipes: 187 },
   },
   {
     id: 88,
@@ -623,6 +802,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Let's touch base and circle back to synergize our core competencies. I'm dead inside.",
     traits: ["Loves spreadsheets", "Speaks in business jargon", "Has a 'case of the Mondays' every day"],
+    baggage: ["A company-issued laptop", "A collection of lanyards", "A profound sense of existential dread"],
+    stats: { rejects: 88, leftSwipes: 288 },
   },
   {
     id: 89,
@@ -630,6 +811,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm a wanderer, a dreamer, a... I forgot what I was saying. Wanna go to a drum circle?",
     traits: ["Doesn't own a watch", "Lives in a van", "Talks about 'vibes'"],
+    baggage: ["A collection of crystals", "A well-worn pair of sandals", "A profound sense of wanderlust"],
+    stats: { rejects: 89, leftSwipes: 189 },
   },
   {
     id: 90,
@@ -637,6 +820,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I can make you a Michelin-star meal, but I'll also judge you for putting ketchup on your eggs.",
     traits: ["Owns a sous-vide machine", "Calls ingredients by their French names", "Thinks truffle oil is a food group"],
+    baggage: ["A set of fancy knives", "A collection of exotic spices", "A profound sense of culinary superiority"],
+    stats: { rejects: 9, leftSwipes: 90 },
   },
   {
     id: 91,
@@ -644,6 +829,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "The moon landing was fake, but my love for you is real. Or is it? *squints*",
     traits: ["Connects everything with red string", "Trusts no one, except maybe you", "Thinks the government is listening"],
+    baggage: ["A tin foil hat for two", "A book on secret societies", "A deep-seated paranoia, but with love"],
+    stats: { rejects: 91, leftSwipes: 191 },
   },
   {
     id: 92,
@@ -651,6 +838,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I wake up at 5 AM every day to run a marathon before breakfast. What's your excuse?",
     traits: ["Annoyingly cheerful in the morning", "Loves the sunrise", "Goes to bed at 9 PM"],
+    baggage: ["A pair of running shoes", "A collection of motivational quotes", "A profound sense of self-discipline"],
+    stats: { rejects: 92, leftSwipes: 292 },
   },
   {
     id: 93,
@@ -658,6 +847,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I don't know what I want. Maybe a relationship. Or maybe a sandwich. I'm not sure.",
     traits: ["Asks 'What do you want to do?'", "Changes their mind constantly", "Takes forever to order at a restaurant"],
+    baggage: ["A collection of pros and cons lists", "A well-worn Magic 8-Ball", "A profound sense of uncertainty"],
+    stats: { rejects: 93, leftSwipes: 193 },
   },
   {
     id: 94,
@@ -665,6 +856,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Shall I compare thee to a summer's day? No, too cliché. How about a slightly wilted houseplant?",
     traits: ["Snaps fingers instead of clapping", "Wears a beret", "Feels everything very deeply"],
+    baggage: ["A Moleskine notebook", "A collection of obscure metaphors", "A profound sense of angst"],
+    stats: { rejects: 9, leftSwipes: 49 },
   },
   {
     id: 95,
@@ -672,6 +865,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Processing... Love... is an illogical emotion. I will attempt to compute it with you.",
     traits: ["Very logical", "Speaks in monotone", "Does not understand sarcasm"],
+    baggage: ["A user manual", "A set of spare batteries", "A profound lack of emotion"],
+    stats: { rejects: 95, leftSwipes: 295 },
   },
   {
     id: 96,
@@ -679,6 +874,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "The person you wanted to date wasn't available, so you get me. I'm okay, I guess.",
     traits: ["A bit of a letdown", "Has low expectations", "Always the second choice"],
+    baggage: ["A name tag that says 'Hello, my name is Not Dave'", "A sense of being a placeholder", "A profound sense of 'good enough'"],
+    stats: { rejects: 96, leftSwipes: 196 },
   },
   {
     id: 97,
@@ -686,6 +883,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I have wanderlust in my soul and no money in my bank account. Let's go somewhere!",
     traits: ["Has a scratch map", "Says 'I'm not a tourist, I'm a traveler'", "Always planning the next trip"],
+    baggage: ["A well-worn passport", "A collection of foreign currencies", "A profound sense of wanderlust"],
+    stats: { rejects: 97, leftSwipes: 297 },
   },
   {
     id: 98,
@@ -693,6 +892,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'm a mythical creature of legend. You'll probably never find me, but if you do, I'm magical.",
     traits: ["A bit elusive", "Sparkly", "Poops rainbows"],
+    baggage: ["A single, perfect rainbow", "A collection of glitter", "A profound sense of magic"],
+    stats: { rejects: 0, leftSwipes: 1000 },
   },
   {
     id: 99,
@@ -700,6 +901,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "I'll be the one at the party standing awkwardly in the corner, petting the dog.",
     traits: ["A bit shy", "Great observer", "Prefers animals to people"],
+    baggage: ["A well-worn book", "A collection of awkward memories", "A profound sense of social anxiety"],
+    stats: { rejects: 9, leftSwipes: 99 },
   },
   {
     id: 100,
@@ -707,6 +910,8 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "Namaste. I'm looking for someone to align my chakras with. And also to pay for my yoga classes.",
     traits: ["Very flexible", "Says 'breathe' a lot", "Owns a lot of leggings"],
+    baggage: ["A yoga mat", "A collection of essential oils", "A profound sense of inner peace (and entitlement)"],
+    stats: { rejects: 10, leftSwipes: 100 },
   },
   {
     id: 101,
@@ -714,5 +919,7 @@ export const fakeUsers: FakeUser[] = [
     avatar: "https://placehold.co/128x128.png",
     bio: "My white whale is a stable relationship. I will pursue it to the ends of the earth, probably with disastrous results.",
     traits: ["Obsessive", "Has a peg leg", "Stares at the sea a lot"],
+    baggage: ["A harpoon", "A map of the ocean", "A profound sense of obsession"],
+    stats: { rejects: 101, leftSwipes: 1010 },
   }
 ];

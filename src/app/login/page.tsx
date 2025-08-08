@@ -124,7 +124,7 @@ export default function LoginPage() {
             {error && <p className="text-primary animate-shake">{error}</p>}
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="link" className="p-0 h-auto text-muted-foreground">Forgot Password?</Button>
+                <Button variant="link" className="p-0 h-auto text-muted-foreground">Forgot password? Typical.</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>

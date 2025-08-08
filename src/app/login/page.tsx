@@ -124,13 +124,13 @@ export default function LoginPage() {
             {error && <p className="text-primary animate-shake">{error}</p>}
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="link" className="p-0 h-auto text-muted-foreground">Forgot password like you forgot your ex</Button>
+                <Button variant="link" className="p-0 h-auto text-muted-foreground">Forgot password?</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Forgot Your Password?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Happens to the best of us. Enter your username below and we'll "recover" it for you. No promises it'll be the right one.
+                    Forgot your password like you forgot your ex? Or do you? Enter your username below and we'll "recover" it for you. No promises it'll be the right one.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className="space-y-2">

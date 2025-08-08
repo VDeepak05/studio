@@ -47,10 +47,10 @@ export function QuestionnaireForm({ questions }: QuestionnaireFormProps) {
     } else {
       // Last question, submit
       try {
-        sessionStorage.setItem("404love_answers", JSON.stringify(answers));
+        localStorage.setItem("404love_answers", JSON.stringify(answers));
         router.push("/profile");
       } catch (e) {
-        console.error("Could not save answers to sessionStorage", e);
+        console.error("Could not save answers to localStorage", e);
         setError("Could not save your answers. Maybe your browser is also trying to save you from this app.")
       }
     }

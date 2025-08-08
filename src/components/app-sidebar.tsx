@@ -10,14 +10,11 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarHeader,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
 } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
 import {
   HeartCrack,
   User,
@@ -37,7 +34,8 @@ export function AppSidebar() {
   const [actionsOpen, setActionsOpen] = useState(false);
 
   const handleSignOut = () => {
-    sessionStorage.clear();
+    localStorage.removeItem("404love_user");
+    // We keep answers and questions in case the user logs back in
     router.push("/login");
   };
 

@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -68,14 +67,14 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
 
   const handleRegenerate = () => {
-    sessionStorage.removeItem("404love_answers");
-    sessionStorage.removeItem("404love_questions");
+    localStorage.removeItem("404love_answers");
+    localStorage.removeItem("404love_questions");
     router.push("/");
   };
   
   useEffect(() => {
-    const userString = sessionStorage.getItem("404love_user");
-    const answersString = sessionStorage.getItem("404love_answers");
+    const userString = localStorage.getItem("404love_user");
+    const answersString = localStorage.getItem("404love_answers");
 
     if (!userString) {
       router.push("/login");
@@ -109,7 +108,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (avatar && bio) {
       setLoading(false);
-      const answersString = sessionStorage.getItem("404love_answers");
+      const answersString = localStorage.getItem("404love_answers");
       // Only show the toast if they just completed the questionnaire
       if (answersString) {
         const randomJoke = popupJokes[Math.floor(Math.random() * popupJokes.length)];

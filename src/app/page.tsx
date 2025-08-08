@@ -24,28 +24,39 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = sessionStorage.getItem("404love_user");
+    const user = localStorage.getItem("404love_user");
     if (!user) {
       router.push("/login");
       return;
     }
 
-    const fetchQuestions = () => {
+    const fetchQuestions = async () => {
         setLoading(true);
-        generateQuestions({})
-            .then((res) => {
-                const generatedQuestions = res.questions.map(q => ({...q, key: q.key.toLowerCase().replace(/\s+/g, '_')}));
-                sessionStorage.setItem("404love_questions", JSON.stringify(generatedQuestions));
-                setQuestions(generatedQuestions);
-            })
-            .catch(console.error)
-            .finally(() => setLoading(false));
+        try {
+            const res = await generateQuestions({});
+            const generatedQuestions = res.questions.map(q => ({...q, key: q.key.toLowerCase().replace(/\s+/g, '_')}));
+            localStorage.setItem("404love_questions", JSON.stringify(generatedQuestions));
+            setQuestions(generatedQuestions);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const storedQuestions = sessionStorage.getItem("404love_questions");
+    const storedQuestions = localStorage.getItem("404love_questions");
     if (storedQuestions) {
-        setQuestions(JSON.parse(storedQuestions));
-        setLoading(false);
+        try {
+            const parsedQuestions = JSON.parse(storedQuestions);
+            if (parsedQuestions && parsedQuestions.length > 0) {
+                setQuestions(parsedQuestions);
+                setLoading(false);
+            } else {
+                fetchQuestions();
+            }
+        } catch (e) {
+            fetchQuestions();
+        }
     } else {
       fetchQuestions();
     }

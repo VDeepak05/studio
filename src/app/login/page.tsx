@@ -39,11 +39,11 @@ export default function LoginPage() {
   const [forgotPasswordUsername, setForgotPasswordUsername] = useState("");
 
   useEffect(() => {
-    // Clear any previous session on login page load
-    sessionStorage.removeItem("404love_user");
-    sessionStorage.removeItem("404love_answers");
-    sessionStorage.removeItem("404love_questions");
-  }, []);
+    // Check if user is already logged in
+    if (localStorage.getItem("404love_user")) {
+        router.push('/profile');
+    }
+  }, [router]);
 
   const handleLogin = () => {
     if (!username || !password) {
@@ -55,11 +55,13 @@ export default function LoginPage() {
     if (storedUser) {
       const user = JSON.parse(storedUser);
       if (user.password === password) {
-        sessionStorage.setItem("404love_user", JSON.stringify({ username }));
-        // Existing user, clear old questionnaire data
-        sessionStorage.removeItem("404love_answers");
-        sessionStorage.removeItem("404love_questions");
-        router.push("/profile");
+        localStorage.setItem("404love_user", JSON.stringify({ username }));
+        // Existing user, check if they have answers
+        if (localStorage.getItem("404love_answers")) {
+          router.push("/profile");
+        } else {
+          router.push("/");
+        }
       } else {
         setError("Invalid password.");
       }
@@ -67,7 +69,7 @@ export default function LoginPage() {
       // New user registration
       const newUser = { username, password };
       localStorage.setItem(`404love_user_${username}`, JSON.stringify(newUser));
-      sessionStorage.setItem("404love_user", JSON.stringify({ username }));
+      localStorage.setItem("404love_user", JSON.stringify({ username }));
        // New user, go to questionnaire
       router.push("/");
     }

@@ -21,7 +21,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, TrendingDown } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
 const ridiculousTraits = [
   "Fluent in Sarcasm",
@@ -43,11 +45,24 @@ const popupJokes = [
   "Searching for matches... none found. Shocker."
 ]
 
+const chartConfig = {
+  rejects: {
+    label: "Rejects",
+    color: "hsl(var(--primary))",
+  },
+  leftSwipes: {
+    label: "Left Swipes",
+    color: "hsl(var(--accent))",
+  },
+} satisfies ChartConfig
+
 export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
+  const [username, setUsername] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
   const [bio, setBio] = useState<string | null>(null);
+  const [stats, setStats] = useState({ rejects: 0, leftSwipes: 0 });
   const [loading, setLoading] = useState(true);
 
   const handleRegenerate = () => {
@@ -57,19 +72,26 @@ export default function ProfilePage() {
   };
   
   useEffect(() => {
-    const user = sessionStorage.getItem("404love_user");
+    const userString = sessionStorage.getItem("404love_user");
     const answersString = sessionStorage.getItem("404love_answers");
 
-    if (!user) {
+    if (!userString) {
       router.push("/login");
       return;
     }
+    const user = JSON.parse(userString);
+    setUsername(user.username);
+    
+    // Generate funny stats
+    const rejects = Math.floor(Math.random() * 100) + 50;
+    const leftSwipes = Math.floor(Math.random() * 500) + 200;
+    setStats({ rejects, leftSwipes });
     
     if (!answersString) {
-      // If there are no answers, they might have logged in but not filled the questionnaire.
-      // Or they are a returning user who wants to start over.
-      // Let's send them to the questionnaire page.
-      router.push("/");
+      // If no answers, they might be a returning user. Don't generate new content.
+      setBio("Welcome back to the void. Ready for another round of disappointment?");
+      setAvatar("/placeholder.svg"); // A default avatar
+      setLoading(false);
       return;
     }
 
@@ -85,17 +107,25 @@ export default function ProfilePage() {
   useEffect(() => {
     if (avatar && bio) {
       setLoading(false);
-      const randomJoke = popupJokes[Math.floor(Math.random() * popupJokes.length)];
-      const toastTimer = setTimeout(() => {
-        toast({
-          title: "A Quick Reality Check",
-          description: randomJoke,
-          variant: "destructive",
-        });
-      }, 2000);
-      return () => clearTimeout(toastTimer);
+      const answersString = sessionStorage.getItem("404love_answers");
+      // Only show the toast if they just completed the questionnaire
+      if (answersString) {
+        const randomJoke = popupJokes[Math.floor(Math.random() * popupJokes.length)];
+        const toastTimer = setTimeout(() => {
+          toast({
+            title: "A Quick Reality Check",
+            description: randomJoke,
+            variant: "destructive",
+          });
+        }, 2000);
+        return () => clearTimeout(toastTimer);
+      }
     }
   }, [avatar, bio, toast]);
+
+  const chartData = [
+    { metric: "Stats", rejects: stats.rejects, leftSwipes: stats.leftSwipes },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -119,13 +149,38 @@ export default function ProfilePage() {
                   className="size-32 rounded-full border-4 border-primary object-cover bg-secondary"
                   data-ai-hint="profile avatar"
                 />
-                <CardTitle className="font-headline text-3xl mt-4">You, probably.</CardTitle>
+                <CardTitle className="font-headline text-3xl mt-4">{username || 'You, probably.'}</CardTitle>
                 <CardDescription className="text-lg px-2">{bio}</CardDescription>
               </>
             )}
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
+              <h3 className="font-bold mb-2 text-primary text-center">Your Stats of Sadness</h3>
+              <div className="text-center text-muted-foreground">
+                <p><span className="font-bold text-primary">{stats.rejects}</span> Rejects & Counting</p>
+                <p><span className="font-bold text-accent">{stats.leftSwipes}</span> People Swiped Left</p>
+              </div>
+              <ChartContainer config={chartConfig} className="mx-auto aspect-video max-h-40 mt-4">
+                <BarChart accessibilityLayer data={chartData} margin={{left: 10, right: 10}}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="metric"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={() => ""}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="dot" />}
+                  />
+                  <Bar dataKey="rejects" fill="var(--color-rejects)" radius={4} />
+                  <Bar dataKey="leftSwipes" fill="var(--color-leftSwipes)" radius={4} />
+                </BarChart>
+              </ChartContainer>
+            </div>
+             <div className="border-t pt-6">
               <h3 className="font-bold mb-2 text-primary text-center">Ridiculous Traits</h3>
               <div className="flex flex-wrap gap-2 justify-center">
                 {loading ? <Skeleton className="h-6 w-full" /> : ridiculousTraits.map(trait => <Badge key={trait} variant="secondary">{trait}</Badge>)}
